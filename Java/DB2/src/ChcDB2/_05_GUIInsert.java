@@ -24,6 +24,7 @@ public class _05_GUIInsert {
         //System.out.println(rootpanel.getComponents().length);
         //Component[] components = rootpanel.getComponents();
         JTable ElementTable = MyGUI.getElementTable();
+        //ElementTable.isCellEditable(0,0);
         DefaultTableModel tableModel = (DefaultTableModel)ElementTable.getModel();
 
         Object[][] elements = MyDB2.Instance.getElements();
@@ -54,7 +55,38 @@ public class _05_GUIInsert {
         commitBTN.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //存入
+                //存入修改后的旧的雇员信息
+                MyDB2.Instance.oldEmployee.clear();
+                for(int i = 0 ; i < ElementCount;i++){
+                    String nostr;
+                    int no;
+                    String fn = "";
+                    String mid ="";
+                    String ln ="";
+                    if(tableModel.getValueAt(i, 0) != null){
+                        nostr = tableModel.getValueAt(i, 0).toString();
+                        no = Integer.parseInt(nostr);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "雇员编号不合法", "错误提示", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    if(tableModel.getValueAt(i,1) !=null){
+                        fn = tableModel.getValueAt(i,1).toString();
+                    }
+
+                    if(tableModel.getValueAt(i,2) != null){
+                        mid = tableModel.getValueAt(i,2).toString();
+                    }
+
+                    if(tableModel.getValueAt(i,3) != null){
+                        ln = tableModel.getValueAt(i,3).toString();
+                    }
+                    Employee employee = new Employee(no,fn,mid,ln);
+                    MyDB2.Instance.oldEmployee.add(employee);
+                }
+
+                //存入新添加的雇员信息
                 int count = 0;
                 for(int i = ElementCount ; i < SumCount ;i++){
                     if(tableModel.getValueAt(i,0)==null || tableModel.getValueAt(i,1)==null
@@ -75,6 +107,9 @@ public class _05_GUIInsert {
                     count++;
                 }
                 ElementCount = SumCount;
+
+
+
 
                 //更新//插入
                 try {
@@ -191,8 +226,11 @@ class MyDB2{
             preparedStatement.setString(3,ln);
             preparedStatement.setInt(4,no);
 
-            preparedStatement.executeUpdate();//执行更新
+            int code = preparedStatement.executeUpdate();//执行更新
+            //System.out.println(code);
         }
+
+        preparedStatement.close();
     }
 
     //插入数据
@@ -217,6 +255,8 @@ class MyDB2{
             oldEmployee.add(newEmployee.get(i));
         }
         newEmployee.clear();
+
+        preparedStatement.close();
     }
 }
 

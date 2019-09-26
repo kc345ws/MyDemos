@@ -38,12 +38,12 @@ public class ChcGUI {
         //向中间面板添加JTable
         CenterPanel.add(new JScrollPane(ElementTable));
 
-        DeleteBTN.setEnabled(false);
+        /*DeleteBTN.setEnabled(false);
         RollBackBTN.setEnabled(false);
         FitterBTN.setEnabled(false);
         MoreBTN.setEnabled(false);
         CloseBTN.setEnabled(false);
-        HelpBTN.setEnabled(false);
+        HelpBTN.setEnabled(false);*/
 
     }
 
