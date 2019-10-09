@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="jaxen-core">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/jaxen-core.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
