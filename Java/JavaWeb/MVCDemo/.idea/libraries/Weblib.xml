@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Weblib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/lib/c3p0-0.9.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/commons-dbcp-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/commons-dbutils-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/commons-pool-1.5.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/jstl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/mysql-connector-java-8.0.17.jar!/" />
+      <root url="jar://$PROJECT_DIR$/web/lib/standard.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
