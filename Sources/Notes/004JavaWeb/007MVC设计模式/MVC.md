@@ -238,6 +238,139 @@
    
 ### 修改
 
+    --------------------Servlet---------
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=utf-8");
+
+        int id = Integer.parseInt(req.getParameter("id"));
+        StudentService studentService = new StudentServiceImpl();
+        Student student = null;
+        try {
+            student = studentService.findByID(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(student != null){
+            req.setAttribute("student",student);
+            req.getRequestDispatcher("edit.jsp").forward(req,resp);
+        }
+        else{
+            resp.getWriter().write("没有此人");
+        }
+    }
+    
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=utf-8");
+
+
+        int id = Integer.parseInt(req.getParameter("id"));
+        String name = req.getParameter("name");
+        String sex = req.getParameter("sex");
+        String telnum = req.getParameter("telnum");
+
+        String birthday = req.getParameter("birthday");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = simpleDateFormat.parse(birthday);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String[] hobies = req.getParameterValues("hobby");
+        String hoby = "";
+        for(var item : hobies){
+            hoby += item+" ";
+        }
+
+
+
+        String info = req.getParameter("info");
+
+        //1.封装数据
+        Student student = new Student(id,name,sex,telnum,date,hoby,info);
+
+        //2.业务逻辑修改
+        StudentService studentService = new StudentServiceImpl();
+        boolean flag = false;
+        try {
+            flag = studentService.update(student);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(flag){
+            //3.请求转发跳转页面
+            req.getRequestDispatcher("ShowStudentServlet").forward(req,resp);
+        }else{
+            resp.getWriter().write("修改失败");
+        }
+    }
+    
+    
+    -------JSP-----------------
+    <form action="UpdateStudentServlet?id=${student.id}" method="post">
+    <table border="1px solid">
+        <tr>
+            <td>姓名</td>
+            <td><input type="text" name="name" value="${student.name}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>性别</td>
+            <td>
+                <input type="radio" name="sex" value="男" <c:if test="${student.sex == '男'}">checked</c:if>>男
+                <input type="radio" name="sex" value="女" <c:if test="${student.sex == '女'}">checked</c:if>>女
+            </td>
+        </tr>
+        <tr>
+            <td>手机号</td>
+            <td>
+                <input type="tel" name="telnum" value="${student.telnum}">
+            </td>
+        </tr>
+        <tr>
+            <td>生日</td>
+            <td>
+                <input type="date" name="birthday" value="${student.birthday}">
+            </td>
+        </tr>
+        <tr>
+            <td>兴趣</td>
+            <td>
+                <input type="checkbox" name="hobby" value="LOL" <c:if test="${fn:contains(student.hoby,'LOL' )}">checked</c:if> >LOL
+                <input type="checkbox" name="hobby" value="Dota2" <c:if test="${fn:contains(student.hoby,'Dota2' )}">checked</c:if>>Dota2
+                <input type="checkbox" name="hobby" value="300英雄" <c:if test="${fn:contains(student.hoby,'300英雄' )}">checked</c:if>>300英雄
+            </td>
+        </tr>
+        <tr>
+            <td>简介</td>
+            <td>
+                <textarea name="info" rows="30" cols="100">${student.info}</textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="修改">
+            </td>
+        </tr>
+
+    </table>
+    </form>
+    
+
+### 模糊查询
+
+
+    
+
     
 
 

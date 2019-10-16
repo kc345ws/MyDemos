@@ -17,7 +17,7 @@
 <h2>修改信息</h2>
 
 
-<form action="" method="post">
+<form action="UpdateStudentServlet?id=${student.id}" method="post">
     <table border="1px solid">
         <tr>
             <td>姓名</td>
@@ -63,7 +63,7 @@
 
         <tr>
             <td colspan="2">
-                <input type="submit" value="添加">
+                <input type="submit" value="修改">
             </td>
         </tr>
 

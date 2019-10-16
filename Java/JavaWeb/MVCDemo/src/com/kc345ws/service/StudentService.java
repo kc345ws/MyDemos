@@ -14,4 +14,10 @@ public interface StudentService {
     boolean delete(int id) throws  SQLException;
 
     Student findByID(int id)throws SQLException;
+
+    boolean update(Student student)throws SQLException;
+
+    //模糊查询
+    List<Student> search(String name ,String sex)throws  SQLException;
+
 }

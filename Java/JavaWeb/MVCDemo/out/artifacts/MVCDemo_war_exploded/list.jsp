@@ -30,7 +30,25 @@
 <table border="1px solid">
     <tr>
         <td colspan="8">
-            <a href="add.jsp">添加</a>
+
+            <div align="center">模糊查询</div>
+            <div align="center">
+                <form action="SearchStudentServlet" method="post">
+                姓名:<input type="text" name="name">
+                &nbsp;&nbsp;&nbsp;
+
+                    性别:<select name="sex">
+                    <option value="">全部</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+                <input type="submit" value="查询">
+                </form>
+                &nbsp;&nbsp;&nbsp;
+                <a href="add.jsp">添加</a>
+
+            </div>
+
         </td>
     </tr>
 

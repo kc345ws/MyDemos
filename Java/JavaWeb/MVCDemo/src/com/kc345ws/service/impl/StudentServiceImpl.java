@@ -38,4 +38,16 @@ public class StudentServiceImpl implements StudentService {
         StudentDao studentDao = new StudentDaoImpl();
         return studentDao.findByID(id);
     }
+
+    @Override
+    public boolean update(Student student) throws SQLException {
+        StudentDao studentDao = new StudentDaoImpl();
+        return  studentDao.update(student);
+    }
+
+    @Override
+    public List<Student> search(String name, String sex) throws SQLException {
+        StudentDao studentDao = new StudentDaoImpl();
+        return  studentDao.search(name,sex);
+    }
 }
