@@ -10,7 +10,7 @@ import java.util.List;
 * 针对数据库的操作
 */
 public interface StudentDao {
-
+    public static final int PAGE_SIZE = 5;//每页信息个数
     ///获取表中所有数据
     List<Student> getAll() throws SQLException;
 
@@ -24,4 +24,9 @@ public interface StudentDao {
 
     //模糊查询
     List<Student> search(String name ,String sex)throws  SQLException;
+
+    //分页查询信息
+    List<Student> getByPage(int currentPage)throws SQLException;
+
+    int getCount()throws  SQLException;
 }

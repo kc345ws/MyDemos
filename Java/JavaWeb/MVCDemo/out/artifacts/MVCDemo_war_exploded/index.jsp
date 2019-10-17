@@ -13,6 +13,6 @@
   <body>
 
   <h3><a href="ShowStudentServlet">显示所有学生列表</a></h3>
-
+  <h3><a href="ShowPageStudentServlet?currentPage=1">分页显示信息列表</a></h3>
   </body>
 </html>

@@ -1,5 +1,6 @@
 package com.kc345ws.service;
 
+import com.kc345ws.domain.PageBean;
 import com.kc345ws.domain.Student;
 
 import java.sql.SQLException;
@@ -20,4 +21,6 @@ public interface StudentService {
     //模糊查询
     List<Student> search(String name ,String sex)throws  SQLException;
 
+    //分页查询
+    PageBean getByPage(int currentPage)throws SQLException;
 }

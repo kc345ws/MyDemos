@@ -8,6 +8,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDaoImpl implements StudentDao {
+
     @Override
     public List<Student> getAll() throws SQLException {
         //不抓取异常而是向上抛出异常
@@ -123,5 +125,26 @@ public class StudentDaoImpl implements StudentDao {
         List<Student> students = queryRunner.query(sql, new BeanListHandler<Student>(Student.class), paramters.toArray());
 
         return students;
+    }
+
+    @Override
+    public List<Student> getByPage(int currentPage) throws SQLException {
+        Connection connection = JDBCUtil02.getConn();
+        QueryRunner queryRunner = new QueryRunner(JDBCUtil02.getComboPooledDataSource());
+
+        //limit a offset b = b , a
+        List<Student> students = queryRunner.query("select * from t_stu limit ? offset ?", new BeanListHandler<Student>(Student.class), PAGE_SIZE, (currentPage - 1) * 5);
+
+        return students;
+    }
+
+    @Override
+    public int getCount() throws SQLException {
+        //SELECT COUNT(*) FROM t_stu;
+        Connection connection = JDBCUtil02.getConn();
+        QueryRunner queryRunner = new QueryRunner(JDBCUtil02.getComboPooledDataSource());
+
+        Long query = (Long) queryRunner.query("select count(*) from t_stu", new ScalarHandler());
+        return query.intValue();
     }
 }

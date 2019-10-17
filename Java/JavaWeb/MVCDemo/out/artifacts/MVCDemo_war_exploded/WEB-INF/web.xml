@@ -59,4 +59,13 @@
         <url-pattern>/SearchStudentServlet</url-pattern>
     </servlet-mapping>
 
+   <servlet>
+       <servlet-name>ShowPageStudentServlet</servlet-name>
+       <servlet-class>com.kc345ws.servlet.ShowPageStudentServlet</servlet-class>
+   </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowPageStudentServlet</servlet-name>
+        <url-pattern>/ShowPageStudentServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>

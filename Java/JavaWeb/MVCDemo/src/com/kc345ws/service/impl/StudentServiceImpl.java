@@ -4,6 +4,7 @@ package com.kc345ws.service.impl;
 
 import com.kc345ws.dao.StudentDao;
 import com.kc345ws.dao.impl.StudentDaoImpl;
+import com.kc345ws.domain.PageBean;
 import com.kc345ws.domain.Student;
 import com.kc345ws.service.StudentService;
 
@@ -49,5 +50,18 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> search(String name, String sex) throws SQLException {
         StudentDao studentDao = new StudentDaoImpl();
         return  studentDao.search(name,sex);
+    }
+
+    @Override
+    public PageBean getByPage(int currentPage) throws SQLException {
+        //DAO只包含单一逻辑，service可以包含多个单一逻辑
+        StudentDao studentDao = new StudentDaoImpl();
+        List<Student> students = studentDao.getByPage(currentPage);
+        int totalCount = studentDao.getCount();
+        PageBean pageBean = new PageBean(students,currentPage,
+                (totalCount % studentDao.PAGE_SIZE)==0?(totalCount / studentDao.PAGE_SIZE):(totalCount / studentDao.PAGE_SIZE)+1,
+                students.size(),totalCount);
+
+        return  pageBean;
     }
 }
