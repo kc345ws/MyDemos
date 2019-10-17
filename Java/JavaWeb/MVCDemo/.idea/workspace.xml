@@ -6,26 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="06aa6e54-e02f-44b5-baa5-7dced1ff3175" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/kc345ws/domain/PageBean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kc345ws/servlet/ShowPageStudentServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/pagelist.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/MVCDemo_war_exploded/WEB-INF/classes/com/kc345ws/dao/StudentDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MVCDemo_war_exploded/WEB-INF/classes/com/kc345ws/dao/StudentDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/MVCDemo_war_exploded/WEB-INF/classes/com/kc345ws/dao/impl/StudentDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MVCDemo_war_exploded/WEB-INF/classes/com/kc345ws/dao/impl/StudentDaoImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/MVCDemo_war_exploded/WEB-INF/classes/com/kc345ws/service/StudentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MVCDemo_war_exploded/WEB-INF/classes/com/kc345ws/service/StudentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/MVCDemo_war_exploded/WEB-INF/classes/com/kc345ws/service/impl/StudentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/MVCDemo_war_exploded/WEB-INF/classes/com/kc345ws/service/impl/StudentServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MVCDemo/com/kc345ws/dao/StudentDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MVCDemo/com/kc345ws/dao/StudentDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MVCDemo/com/kc345ws/dao/impl/StudentDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MVCDemo/com/kc345ws/dao/impl/StudentDaoImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MVCDemo/com/kc345ws/service/StudentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MVCDemo/com/kc345ws/service/StudentService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/MVCDemo/com/kc345ws/service/impl/StudentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MVCDemo/com/kc345ws/service/impl/StudentServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kc345ws/dao/StudentDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kc345ws/dao/StudentDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kc345ws/dao/impl/StudentDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kc345ws/dao/impl/StudentDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kc345ws/service/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kc345ws/service/StudentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/kc345ws/service/impl/StudentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/kc345ws/service/impl/StudentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
-    </list>
+    <list default="true" id="06aa6e54-e02f-44b5-baa5-7dced1ff3175" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,7 +19,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/kc345ws/service/StudentService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
+            <state relative-caret-position="600">
               <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -50,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/kc345ws/dao/impl/StudentDaoImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="148" column="5" lean-forward="true" selection-start-line="129" selection-start-column="4" selection-end-line="148" selection-end-column="5" />
+            <state relative-caret-position="403">
+              <caret line="148" column="5" selection-start-line="129" selection-start-column="4" selection-end-line="148" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/kc345ws/domain/PageBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="5" lean-forward="true" selection-start-line="4" selection-end-line="18" selection-end-column="5" />
+            <state relative-caret-position="540">
+              <caret line="18" column="5" selection-start-line="4" selection-end-line="18" selection-end-column="5" />
               <folding>
                 <element signature="e#608#609#0" expanded="true" />
                 <element signature="e#639#640#0" expanded="true" />
@@ -161,7 +142,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -282,6 +262,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -411,11 +392,12 @@
       <workItem from="1571210060560" duration="9113000" />
       <workItem from="1571239871520" duration="2767000" />
       <workItem from="1571277274364" duration="5119000" />
+      <workItem from="1571290725427" duration="615000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42394000" />
+    <option name="totallyTimeSpent" value="43009000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -429,7 +411,7 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24396783" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24731903" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -783,7 +765,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/kc345ws/service/StudentService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
+        <state relative-caret-position="600">
           <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -793,8 +775,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/kc345ws/domain/PageBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="5" lean-forward="true" selection-start-line="4" selection-end-line="18" selection-end-column="5" />
+        <state relative-caret-position="540">
+          <caret line="18" column="5" selection-start-line="4" selection-end-line="18" selection-end-column="5" />
           <folding>
             <element signature="e#608#609#0" expanded="true" />
             <element signature="e#639#640#0" expanded="true" />
@@ -822,8 +804,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/kc345ws/dao/impl/StudentDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="148" column="5" lean-forward="true" selection-start-line="129" selection-start-column="4" selection-end-line="148" selection-end-column="5" />
+        <state relative-caret-position="403">
+          <caret line="148" column="5" selection-start-line="129" selection-start-column="4" selection-end-line="148" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
