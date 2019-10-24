@@ -19,7 +19,7 @@ public class _10 {
         ChcGUI MyGUI = new ChcGUI(1);
         JPanel rootpanel = MyGUI.getRootPanel();
 
-        JFrame frame = new JFrame("_10--55170933陈鸿超");
+        JFrame frame = new JFrame("_10");
         frame.setContentPane(rootpanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
