@@ -1,0 +1,4 @@
+﻿  CGWORK0933View.cpp
+c:\users\administrator\desktop\c++\mfc\cgwork0933\cgwork0933\cgwork0933view.cpp(273): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+c:\users\administrator\desktop\c++\mfc\cgwork0933\cgwork0933\cgwork0933view.cpp(278): warning C4244: “参数”: 从“double”转换到“float”，可能丢失数据
+  CGWORK0933.vcxproj -> C:\Users\Administrator\Desktop\C++\MFC\CGWORK0933\Debug\CGWORK0933.exe
