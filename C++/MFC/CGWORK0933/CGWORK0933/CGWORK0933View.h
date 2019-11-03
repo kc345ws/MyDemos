@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include <list>
 
 class CCGWORK0933View : public CView
 {
@@ -46,6 +46,7 @@ public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+
 	// 鼠标绘图时鼠标左键按下消息处理函数
 	void DrawLButtonDown(UINT nFlags, CPoint point);
 	// 鼠标绘图时鼠标移动消息处理函数
@@ -57,17 +58,28 @@ public:
 	bool m_LButtonDown;//鼠标左键是否按下
 	bool m_isDraw;//是否在绘制
 	int m_DrawType;//绘制图形类型
-	enum DrawTypes
+	enum DrawTypes//绘制图形最的种类
 	{
 		LINE,
 		RECTANGLE,
 		CIRCULAR
 	};
-	afx_msg void OnDrawLine();
-	afx_msg void OnDrawCircular();
-	afx_msg void OnDrawSetColor();
+	afx_msg void OnDrawLine();//画直线
+	afx_msg void OnDrawCircular();//画圆形
+	afx_msg void OnDrawSetColor();//设置画笔颜色
 	CPen m_Pen;//绘图时的笔
-	COLORREF m_PenColor;
+	COLORREF m_PenColor;//画笔颜色
+	afx_msg void OnDrawPolygon();//绘制多边形
+	afx_msg void OnSetPolygonColor();//绘制多边形设置填充颜色
+	bool m_isDrawPoly;//是否在绘制多边形
+//	bool m_isEndRrawPoly;
+//是否结束多边形绘制
+	int m_PolyCount;
+	afx_msg void OnInvalidate();
+	// 获取点中y坐标最大值
+//	int GetMaxY();
+//	void Fill(CDC*& pDC, int x, int y, COLORREF& oldColor, COLORREF& newColor);
+	std::list<CPoint> m_PloyCpoints;
 };
 
 #ifndef _DEBUG  // CGWORK0933View.cpp 中的调试版本

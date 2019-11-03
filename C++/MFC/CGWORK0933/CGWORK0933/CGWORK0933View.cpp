@@ -11,13 +11,17 @@
 
 #include "CGWORK0933Doc.h"
 #include "CGWORK0933View.h"
-#include"ChcTools.h"
+#include "ChcTools.h"
+//#include<list>
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
-
+using namespace std;
+/*---------------------生成代码------------------------*/
+#pragma region 生成代码
 // CCGWORK0933View
 
 IMPLEMENT_DYNCREATE(CCGWORK0933View, CView)
@@ -35,6 +39,9 @@ BEGIN_MESSAGE_MAP(CCGWORK0933View, CView)
 	ON_COMMAND(ID_DRAW_LINE, &CCGWORK0933View::OnDrawLine)
 	ON_COMMAND(ID_DRAW_CIRCULAR, &CCGWORK0933View::OnDrawCircular)
 	ON_COMMAND(ID_DRAW_SET_COLOR, &CCGWORK0933View::OnDrawSetColor)
+	ON_COMMAND(ID_DRAW_POLYGON, &CCGWORK0933View::OnDrawPolygon)
+	ON_COMMAND(ID_SET_POLYGON_COLOR, &CCGWORK0933View::OnSetPolygonColor)
+	ON_COMMAND(ID_Invalidate, &CCGWORK0933View::OnInvalidate)
 END_MESSAGE_MAP()
 
 // CCGWORK0933View 构造/析构
@@ -45,9 +52,14 @@ CCGWORK0933View::CCGWORK0933View() noexcept
 	m_LButtonDown = false;//默认鼠标左键未按下
 	m_DrawType = LINE;//默认直线
 	m_isDraw = true;
-	
+
 	m_PenColor = RGB(0, 0, 0);
 	m_Pen.CreatePen(PS_SOLID, 3, RGB(42, 67, 23));
+
+	m_isDrawPoly = false;
+
+	m_PolyCount = 0;
+	m_PloyCpoints = list<CPoint>();
 }
 
 CCGWORK0933View::~CCGWORK0933View()
@@ -74,15 +86,15 @@ void CCGWORK0933View::OnDraw(CDC* /*pDC*/)
 
 
 
-	CClientDC dc(this);
+	/*CClientDC dc(this);
 
 
 	dc.SelectObject(m_Pen);
 	dc.LineTo(400, 500);
 	for (int i = 100; i < 300; i++) {
 		dc.SetPixel(i, i, m_PenColor);
-	}
-;
+	}*/
+	;
 	// TODO: 在此处为本机数据添加绘制代码
 }
 
@@ -125,29 +137,15 @@ CCGWORK0933Doc* CCGWORK0933View::GetDocument() const // 非调试版本是内联
 	return (CCGWORK0933Doc*)m_pDocument;
 }
 #endif //_DEBUG
+#pragma endregion
 
 
-// CCGWORK0933View 消息处理程序
-
-//选择此菜单项后，可利用鼠标在视图区绘制矩形； 
-void CCGWORK0933View::OnDrawRect()
-{
-	// TODO: 在此添加命令处理程序代码
-	m_DrawType = RECTANGLE;
-}
-
-//画直线
-void CCGWORK0933View::OnDrawLine()
-{
-	// TODO: 在此添加命令处理程序代码
-	m_DrawType = LINE;	
-}
-
+/*---------------------鼠标代码------------------------*/
+#pragma region 鼠标代码
 //鼠标左键双击消息函数
 void CCGWORK0933View::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-
 	CView::OnLButtonDblClk(nFlags, point);
 }
 
@@ -155,9 +153,10 @@ void CCGWORK0933View::OnLButtonDblClk(UINT nFlags, CPoint point)
 void CCGWORK0933View::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	if (m_isDraw) {
+	/*if (m_isDraw || m_isDrawPoly) {
 		DrawLButtonDown(nFlags, point);
-	}
+	}*/
+	DrawLButtonDown(nFlags, point);
 	CView::OnLButtonDown(nFlags, point);
 }
 
@@ -175,9 +174,10 @@ void CCGWORK0933View::OnLButtonUp(UINT nFlags, CPoint point)
 	次，则并不是每次按键都会产生鼠标消息，只有第一次按键以及后面按键与前一次按键的时间
 	间隔在一秒钟以上的那些按键才会产生鼠标消息。
 	*/
-	if (m_isDraw) {
+	/*if (m_isDraw || m_isDrawPoly) {
 		DrawLButtonUp(nFlags, point);
-	}
+	}*/
+	DrawLButtonUp(nFlags, point);
 	CView::OnLButtonUp(nFlags, point);
 }
 
@@ -185,9 +185,10 @@ void CCGWORK0933View::OnLButtonUp(UINT nFlags, CPoint point)
 void CCGWORK0933View::OnMouseMove(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	if (m_isDraw) {
+	/*if (m_isDraw || m_isDrawPoly) {
 		DrawMouseMove(nFlags, point);
-	}
+	}*/
+	DrawMouseMove(nFlags, point);
 	CView::OnMouseMove(nFlags, point);
 }
 
@@ -196,15 +197,99 @@ void CCGWORK0933View::OnMouseMove(UINT nFlags, CPoint point)
 void CCGWORK0933View::DrawLButtonDown(UINT nFlags, CPoint point)
 {
 	// TODO: 在此处添加实现代码.
+	CClientDC *cdc = (CClientDC*)GetDC();
+	cdc->SelectObject(m_Pen);
+
+	if (m_isDraw) {
+		//如果在绘制图形
+		this->SetCapture();//捕获鼠标
+		m_StartPoint = point;
+		m_EndPoint = point;
+		m_LButtonDown = true;
+	}else if (m_isDrawPoly && m_PolyCount == 0) {
+		//如果在绘制多边形，且是第一次绘制
+		this->SetCapture();//捕获鼠标
+		m_StartPoint = point;
+		m_EndPoint = point;
+		m_LButtonDown = true;
+		m_PolyCount++;
+		m_PloyCpoints.push_back(m_StartPoint);
+	}
+	else if (m_isDrawPoly && m_PolyCount != 0) {
+		//如果在绘制多边形，且不是第一次绘制
+		//m_EndPoint = point;
+		m_LButtonDown = true;
+
+		ChcTools chc;
+		cdc->MoveTo(m_EndPoint);
+		if (((point.x - m_StartPoint.x)*(point.x - m_StartPoint.x)
+			+ (point.y - m_StartPoint.y)*(point.y - m_StartPoint.y)) <= 300.0) {
+			chc.DDALine(cdc, m_EndPoint, m_StartPoint, m_PenColor);
+			m_PolyCount = 0;
 
 
-	this->SetCapture();//捕获鼠标
-	m_StartPoint = point;
-	m_EndPoint = point;
-	m_LButtonDown = true;
+			/*---------------------------------------------*/
+			CBitmap bitmap;
+			bitmap.LoadBitmapW(IDB_SID);
+			CDC bmp;
+			bmp.CreateCompatibleDC(cdc);//创建一个兼容cdc的设备上下文
+			bmp.SelectObject(&bitmap);//替换设备上下文资源
 
-	CClientDC CDC(this);
-	CDC.SelectObject(m_Pen);
+			//cdc->BitBlt(0, 0, 38,19, &bmp, 0, 0, SRCCOPY);//复制bmp到cdc
+			
+			//cdc->BitBlt(m_StartPoint.x, m_StartPoint.y, 10, 10, &bmp, 0, 0, SRCCOPY);
+			//COLORREF color = RGB(234, 32, 34);
+			
+			CBrush cBrush(&bitmap);
+
+
+			//cdc->FillRect(CRect(100, 200, 300, 400), &cBrush);
+
+			
+			/*CPoint cpoint[3];
+			cpoint[0].x = 100;
+			cpoint[0].y = 100;
+			cpoint[1].x = 200;
+			cpoint[1].y = 100;
+			cpoint[2].x = 150;
+			cpoint[2].y = 200;
+			CRgn crgn;*/
+			CRgn crgn;
+			CPoint *cpoint = new CPoint[m_PloyCpoints.size()];
+			int count = 0;
+			for (auto item : m_PloyCpoints) {
+				cpoint[count] = item;
+				count++;
+			}
+			if (crgn.CreatePolygonRgn(cpoint, m_PloyCpoints.size(), ALTERNATE))
+			{
+				//cdc->MoveTo(cpoint[0]);
+				cdc->FillRgn(&crgn, &cBrush);
+				for (int i = 0; i < m_PloyCpoints.size()-1; i++) {
+					cdc->MoveTo(cpoint[i]);
+					cdc->LineTo(cpoint[i + 1]);
+				}
+				cdc->MoveTo(cpoint[m_PloyCpoints.size() - 1]);
+				cdc->LineTo(cpoint[0]);
+			}
+			
+
+
+			bitmap.DeleteObject();//释放资源对象
+			//ReleaseDC(cdc);
+			ReleaseDC(&bmp);//释放设备上下文
+			m_PloyCpoints.clear();
+		}
+		else {
+			chc.DDALine(cdc, m_EndPoint, point, m_PenColor);
+			m_EndPoint = point;
+			m_PolyCount++;
+			m_PloyCpoints.push_back(m_EndPoint);
+		}
+		
+	}
+
+	ReleaseDC(cdc);
 }
 
 
@@ -216,12 +301,12 @@ void CCGWORK0933View::DrawMouseMove(UINT nFlags, CPoint point)
 	//CDC *cdc = GetDC();
 	CClientDC *cdc = (CClientDC*)GetDC();
 	cdc->SelectObject(m_Pen);
-	
+	cdc->SetROP2(R2_NOTXORPEN);
 
-	if (m_LButtonDown) {
+	if (m_LButtonDown && m_isDraw) {
 		//如果鼠标左键还在按下状态
 		//cdc->SetROP2(R2_NOT);//设置绘图模式为R2_NOT模式
-		cdc->SetROP2(R2_NOTXORPEN);
+		//cdc->SetROP2(R2_NOTXORPEN);
 		/*
 		//重新绘制前一个鼠标移动消息处理函数绘制的直线段
 		//因为绘图模式的原因，结果是擦除了该线段
@@ -238,7 +323,7 @@ void CCGWORK0933View::DrawMouseMove(UINT nFlags, CPoint point)
 			m_EndPoint = point;*/
 			ChcTools chc;
 			cdc->MoveTo(m_StartPoint);
-			
+
 			chc.DDALine(cdc, m_StartPoint, m_EndPoint, m_PenColor);
 
 			cdc->MoveTo(m_StartPoint);
@@ -249,8 +334,8 @@ void CCGWORK0933View::DrawMouseMove(UINT nFlags, CPoint point)
 		else if (m_DrawType == RECTANGLE) {
 			//画矩形
 			ChcTools chc;
-			
-			
+
+
 			cdc->MoveTo(m_StartPoint);
 
 			chc.DrawRectangle(cdc, m_StartPoint, m_EndPoint, m_PenColor);
@@ -280,6 +365,17 @@ void CCGWORK0933View::DrawMouseMove(UINT nFlags, CPoint point)
 			m_EndPoint = point;
 		}
 	}
+	else if (m_LButtonDown && m_isDrawPoly) {
+		/*ChcTools chc;
+		cdc->MoveTo(m_StartPoint);
+
+		chc.DDALine(cdc, m_StartPoint, m_EndPoint, m_PenColor);
+
+		cdc->MoveTo(m_StartPoint);
+		chc.DDALine(cdc, m_StartPoint, point, m_PenColor);
+
+		m_EndPoint = point;*/
+	}
 	/*
 		因为m_EndPoint中存放的一直是上次调用鼠标移动消息处理函数时鼠标光标所处的位置，
 		所以绘制m_StartPoint和m_EndPoint之间的直线段时，该直线段已经存在了，因为绘图
@@ -288,6 +384,7 @@ void CCGWORK0933View::DrawMouseMove(UINT nFlags, CPoint point)
 		绘图实际在视图区中绘制了一条从m_StartPoint到point的直线段。最后将m_EndPoint赋
 		值为point，保证下一次执行鼠标移动消息处理函数时可以正确的将本次执行时绘制的直
 		线段擦除掉。*/
+	ReleaseDC(cdc);
 }
 
 
@@ -298,22 +395,40 @@ void CCGWORK0933View::DrawLButtonUp(UINT nFlags, CPoint point)
 	m_LButtonDown = false;
 	//m_isDraw = false;
 	ReleaseCapture();//释放鼠标
-	//CClientDC CDC(this);//构造设备环境对象
 
-	//绘制最终要绘制的直线段
-	/*if (m_DrawType == LINE) {
-		CDC.MoveTo(m_StartPoint);
-		CDC.LineTo(m_EndPoint);
-	}*/
+}
+#pragma endregion
+
+
+/*---------------------图形绘制------------------------*/
+#pragma region 图形绘制代码
+// CCGWORK0933View 消息处理程序
+
+//画直线
+void CCGWORK0933View::OnDrawLine()
+{
+	// TODO: 在此添加命令处理程序代码
+	m_DrawType = LINE;
+	m_isDraw = true;
+	m_isDrawPoly = false;
 }
 
-
+//选择此菜单项后，可利用鼠标在视图区绘制矩形； 
+void CCGWORK0933View::OnDrawRect()
+{
+	// TODO: 在此添加命令处理程序代码
+	m_DrawType = RECTANGLE;
+	m_isDraw = true;
+	m_isDrawPoly = false;
+}
 
 //
 void CCGWORK0933View::OnDrawCircular()
 {
 	// TODO: 在此添加命令处理程序代码
 	m_DrawType = CIRCULAR;
+	m_isDraw = true;
+	m_isDrawPoly = false;
 }
 
 //设置颜色
@@ -325,12 +440,178 @@ void CCGWORK0933View::OnDrawSetColor()
 
 	if (cdlg.DoModal()) {
 		color = cdlg.GetColor();
-
-		//m_Pen.CreatePen(PS_NULL, 0, color);
-		
-		m_Pen.DeleteObject();
+		m_Pen.DeleteObject();//删除上下文环境中的旧画笔
 		m_Pen.CreatePen(PS_SOLID, 10, color);
-
 		m_PenColor = color;
 	}
 }
+#pragma endregion
+
+
+/*---------------------区域填充------------------------*/
+#pragma region 区域填充代码
+//绘制多边形
+void CCGWORK0933View::OnDrawPolygon()
+{
+	// TODO: 在此添加命令处理程序代码
+	m_isDraw = false;
+	m_isDrawPoly = true;
+}
+
+//设置多边形填充颜色
+void CCGWORK0933View::OnSetPolygonColor()
+{
+	// TODO: 在此添加命令处理程序代码
+	COLORREF color = RGB(0, 0, 0);
+	CColorDialog cdlg(color, CC_FULLOPEN | CC_RGBINIT); // 设置默认颜色
+
+	if (cdlg.DoModal()) {
+		color = cdlg.GetColor();
+		m_Pen.DeleteObject();//删除上下文环境中的旧画笔
+		m_Pen.CreatePen(PS_SOLID, 10, color);
+		m_PenColor = color;
+	}
+}
+#pragma endregion
+
+
+//清屏
+void CCGWORK0933View::OnInvalidate()
+{
+	// TODO: 在此添加命令处理程序代码
+	Invalidate(true);
+}
+
+
+
+
+
+
+
+
+/*
+void CCGWORK0933View::Fill(CDC*& pDC, int x, int y, COLORREF& oldColor, COLORREF& newColor)
+{
+	// TODO: 在此处添加实现代码.
+	stack<Seed> sp;
+	PolyGon
+
+	int xl, xr;
+
+	bool spanNeedfill;
+
+	Seed pt;
+
+	pt.x = x; pt.y = y;
+
+	sp.push(pt);
+
+	while (!sp.empty())
+
+	{
+
+		pt = sp.top(); sp.pop();
+
+		y = pt.y; x = pt.x;
+
+		while (pDC->GetPixel(x, y) == oldColor)//向右填充
+
+		{
+
+			pDC->SetPixel(x, y, newColor);
+
+			x++;
+
+		}
+
+		xr = x - 1; x = pt.x - 1;
+
+		while (pDC->GetPixel(x, y) == oldColor)//向左填充
+
+		{
+
+			pDC->SetPixel(x, y, newColor);
+
+			x--;
+
+		}
+
+		xl = x + 1;
+
+		//处理上面一条扫描线
+
+		x = xl; y = y + 1;
+
+		while (x <= xr)
+
+		{
+
+			spanNeedfill = false;
+
+			while (pDC->GetPixel(x, y) == oldColor)
+
+			{
+
+				spanNeedfill = true;
+
+				x++;
+
+			}
+
+			if (spanNeedfill)
+
+			{
+
+				pt.x = x - 1; pt.y = y;
+
+				sp.push(pt);
+
+				spanNeedfill = false;
+
+			}
+
+			while ((pDC->GetPixel(x, y) != oldColor) && x <= xr) x++;
+
+		}
+
+
+
+		//处理下面一条扫描线
+
+		x = xl; y = y - 2;
+
+		while (x <= xr)
+
+		{
+
+			spanNeedfill = false;
+
+			while (pDC->GetPixel(x, y) == oldColor)
+
+			{
+
+				spanNeedfill = true;
+
+				x++;
+
+			}
+
+			if (spanNeedfill)
+
+			{
+
+				pt.x = x - 1; pt.y = y;
+
+				sp.push(pt);
+
+				spanNeedfill = false;
+
+			}
+
+			while ((pDC->GetPixel(x, y) != oldColor) && x <= xr) x++;
+
+		}
+
+	}
+}
+*/

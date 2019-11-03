@@ -20,13 +20,19 @@
 #define ID_DRAW_SET_COLOR               32780
 #define ID_32781                        32781
 #define ID_DRAW_LINE                    32782
+#define ID_32783                        32783
+#define ID_32784                        32784
+#define ID_DRAW_POLYGON                 32785
+#define ID_SET_POLYGON_COLOR            32786
+#define ID_32787                        32787
+#define ID_Invalidate                   32788
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        314
-#define _APS_NEXT_COMMAND_VALUE         32783
+#define _APS_NEXT_COMMAND_VALUE         32789
 #define _APS_NEXT_CONTROL_VALUE         1000
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
