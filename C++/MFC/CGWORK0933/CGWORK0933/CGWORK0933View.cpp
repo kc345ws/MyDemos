@@ -12,6 +12,7 @@
 #include "CGWORK0933Doc.h"
 #include "CGWORK0933View.h"
 #include "ChcTools.h"
+#include <math.h>
 //#include<list>
 
 
@@ -42,6 +43,10 @@ BEGIN_MESSAGE_MAP(CCGWORK0933View, CView)
 	ON_COMMAND(ID_DRAW_POLYGON, &CCGWORK0933View::OnDrawPolygon)
 	ON_COMMAND(ID_SET_POLYGON_COLOR, &CCGWORK0933View::OnSetPolygonColor)
 	ON_COMMAND(ID_Invalidate, &CCGWORK0933View::OnInvalidate)
+	ON_WM_KEYDOWN()
+	ON_COMMAND(ID_DRAW_CUBE, &CCGWORK0933View::OnDrawCube)
+//	ON_WM_CONTEXTMENU()
+ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 // CCGWORK0933View 构造/析构
@@ -60,6 +65,23 @@ CCGWORK0933View::CCGWORK0933View() noexcept
 
 	m_PolyCount = 0;
 	m_PloyCpoints = list<CPoint>();
+	cxClient = 0;
+	cyClient = 0;
+
+	
+
+	/*-----------------正方体三维坐标------------------*/
+	m_CubeThPoints[0] = ThPoint(0, 0, 0);
+	m_CubeThPoints[1] = ThPoint(0, 0, 100);
+	m_CubeThPoints[2] = ThPoint(0, 0, 100);
+	m_CubeThPoints[3] = ThPoint(100, 0, 100)
+
+	
+
+	
+
+	//m_CubeThPoints[4].x = 100;
+	/*-----------------正方体三维坐标------------------*/
 }
 
 CCGWORK0933View::~CCGWORK0933View()
@@ -615,3 +637,82 @@ void CCGWORK0933View::Fill(CDC*& pDC, int x, int y, COLORREF& oldColor, COLORREF
 	}
 }
 */
+
+
+//键盘按键按下时的消息
+void CCGWORK0933View::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	CView::OnKeyDown(nChar, nRepCnt, nFlags);
+
+	/*
+	currentx1 currentx2 currenty1 currenty2 矩形对角线坐标
+	dx dy矩形移动位移量，初始值都为0
+	if(nChar == VK_LEFT)//nchar按键标识符
+	左键dx = -1;
+	up dy = -1;
+	....
+	
+	invilidate无效化窗口从而调用ondraw，使得画面再次重画
+	*/
+	if (nChar == VK_LEFT) {
+
+	}
+	else if (nChar == VK_RIGHT) {
+
+	}
+	else if (nChar == VK_UP) {
+
+	}
+	else if (nChar == VK_DOWN) {
+
+	}
+
+}
+
+//绘制立方体
+void CCGWORK0933View::OnDrawCube()
+{
+	// TODO: 在此添加命令处理程序代码
+	CClientDC *cdc = (CClientDC*)GetDC();
+	//cdc->SetViewportOrg()
+	cdc->SetViewportOrg(cxClient / 2, cyClient / 2);
+	cdc->MoveTo(-cxClient / 2, 0);
+	cdc->LineTo(cxClient / 2, 0);
+	cdc->MoveTo(0, -cyClient / 2);
+	cdc->LineTo(0, cyClient / 2);
+	
+
+
+	ReleaseDC(cdc);
+}
+
+
+//void CCGWORK0933View::OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/)
+//{
+//	// TODO: 在此处添加消息处理程序代码
+//}
+
+//获取屏幕大小
+void CCGWORK0933View::OnSize(UINT nType, int cx, int cy)
+{
+	CView::OnSize(nType, cx, cy);
+
+	// TODO: 在此处添加消息处理程序代码
+	cxClient = cx;
+	cyClient = cy;
+
+	ShadowTrans(-45);
+
+
+}
+
+//立方体数据结构 数组[8] 结构体x,y,z
+//进行投影变换，变为二维坐标
+//正方体透视投影
+void CCGWORK0933View::ShadowTrans(int degree)
+{
+	// TODO: 在此处添加实现代码.
+
+}

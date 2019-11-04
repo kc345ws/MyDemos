@@ -80,6 +80,39 @@ public:
 //	int GetMaxY();
 //	void Fill(CDC*& pDC, int x, int y, COLORREF& oldColor, COLORREF& newColor);
 	std::list<CPoint> m_PloyCpoints;
+	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
+	afx_msg void OnDrawCube();
+//	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	int cxClient;
+	int cyClient;
+	void ShadowTrans(int degree);
+
+
+	ThPoint m_CubeThPoints[8];
+};
+
+//三维坐标
+/*struct ThPoint
+{
+	int x;
+	int y;
+	int z;
+
+	
+};*/
+
+class ThPoint {
+public:
+	int x;
+	int y;
+	int z;
+
+	ThPoint(int x, int y, int z) {
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	}
 };
 
 #ifndef _DEBUG  // CGWORK0933View.cpp 中的调试版本
