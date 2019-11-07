@@ -5,6 +5,22 @@
 #pragma once
 #include <list>
 
+class ThPoint {
+public:
+	int x;
+	int y;
+	int z;
+
+	ThPoint(int x, int y, int z) {
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	}
+
+	ThPoint() {}
+};
+
+
 class CCGWORK0933View : public CView
 {
 protected: // 仅从序列化创建
@@ -87,9 +103,17 @@ public:
 	int cxClient;
 	int cyClient;
 	void ShadowTrans(int degree);
+	void DrawRect(CPoint p1, CPoint p2, CPoint p3, CPoint p4);//画矩形
+	void DrawCube();//画立方体
 
-
+	
 	ThPoint m_CubeThPoints[8];
+	CPoint m_Cube2DPoints[8];//立方体顶点2D坐标
+	void Perspective();
+
+	// 投影矩阵
+	double m_Proj_Matri[4][4];
+	void From3dTo2d();
 };
 
 //三维坐标
@@ -102,18 +126,6 @@ public:
 	
 };*/
 
-class ThPoint {
-public:
-	int x;
-	int y;
-	int z;
-
-	ThPoint(int x, int y, int z) {
-		this->x = x;
-		this->y = y;
-		this->z = z;
-	}
-};
 
 #ifndef _DEBUG  // CGWORK0933View.cpp 中的调试版本
 inline CCGWORK0933Doc* CCGWORK0933View::GetDocument() const

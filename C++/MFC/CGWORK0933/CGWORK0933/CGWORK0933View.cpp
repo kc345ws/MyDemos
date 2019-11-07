@@ -72,16 +72,17 @@ CCGWORK0933View::CCGWORK0933View() noexcept
 
 	/*-----------------正方体三维坐标------------------*/
 	m_CubeThPoints[0] = ThPoint(0, 0, 0);
-	m_CubeThPoints[1] = ThPoint(0, 0, 100);
+	m_CubeThPoints[1] = ThPoint(100, 0, 0);
 	m_CubeThPoints[2] = ThPoint(0, 0, 100);
-	m_CubeThPoints[3] = ThPoint(100, 0, 100)
-
+	m_CubeThPoints[3] = ThPoint(100, 0, 100);
+	m_CubeThPoints[4] = ThPoint(0, 100, 0);
+	m_CubeThPoints[5] = ThPoint(100, 100, 0);
+	m_CubeThPoints[6] = ThPoint(0, 100, 100);
+	m_CubeThPoints[7] = ThPoint(100, 100, 100);
 	
-
-	
-
 	//m_CubeThPoints[4].x = 100;
 	/*-----------------正方体三维坐标------------------*/
+	Perspective();//透视投影矩阵
 }
 
 CCGWORK0933View::~CCGWORK0933View()
@@ -107,7 +108,9 @@ void CCGWORK0933View::OnDraw(CDC* /*pDC*/)
 		return;
 
 
+	CClientDC dc(this);
 
+	
 	/*CClientDC dc(this);
 
 
@@ -675,7 +678,8 @@ void CCGWORK0933View::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 void CCGWORK0933View::OnDrawCube()
 {
 	// TODO: 在此添加命令处理程序代码
-	CClientDC *cdc = (CClientDC*)GetDC();
+	DrawCube();
+	/*CClientDC *cdc = (CClientDC*)GetDC();
 	//cdc->SetViewportOrg()
 	cdc->SetViewportOrg(cxClient / 2, cyClient / 2);
 	cdc->MoveTo(-cxClient / 2, 0);
@@ -685,7 +689,7 @@ void CCGWORK0933View::OnDrawCube()
 	
 
 
-	ReleaseDC(cdc);
+	ReleaseDC(cdc);*/
 }
 
 
@@ -715,4 +719,168 @@ void CCGWORK0933View::ShadowTrans(int degree)
 {
 	// TODO: 在此处添加实现代码.
 
+}
+
+
+
+//透视投影矩阵
+void CCGWORK0933View::Perspective()
+{
+	// TODO: 在此处添加实现代码.
+	double x0 = 0.5;//投影中心X坐标
+	double y0 = 0.5;//投影中心Y坐标
+	double d = 1;//z0 = -d
+	/*
+	实用中,常取z=0为投影平面，
+	这时投影中心可取空间中任意一点(x0,y0,z0)。
+	*/
+
+	//第一列
+	m_Proj_Matri[0][0] = 1;
+	m_Proj_Matri[0][1] = 0;
+	m_Proj_Matri[0][2] = x0/d;
+	m_Proj_Matri[0][3] = 0;
+
+	m_Proj_Matri[1][0] = 0;
+	m_Proj_Matri[1][1] = 1;
+	m_Proj_Matri[1][2] = y0/d;
+	m_Proj_Matri[1][3] = 0;
+
+	m_Proj_Matri[2][0] = 0;
+	m_Proj_Matri[2][1] = 0;
+	m_Proj_Matri[2][2] = 0;
+	m_Proj_Matri[2][3] = 0;
+
+	m_Proj_Matri[3][0] = 0;
+	m_Proj_Matri[3][1] = 0;
+	m_Proj_Matri[3][2] = 1.0/d;
+	//m_Proj_Matri[3][3] = 0;
+
+	m_Proj_Matri[3][3] = 1;
+
+
+	From3dTo2d();
+}
+
+//将正方体顶点的三维坐标转换为二维坐标
+void CCGWORK0933View::From3dTo2d()
+{
+	// TODO: 在此处添加实现代码.
+
+	//第一个顶点
+	m_Cube2DPoints[0].x = 
+		m_CubeThPoints[0].x * m_Proj_Matri[0][0] +
+		m_CubeThPoints[0].y * m_Proj_Matri[0][1] + 
+		m_CubeThPoints[0].z * m_Proj_Matri[0][2] + 
+		m_Proj_Matri[0][3];
+	m_Cube2DPoints[0].y =
+		m_CubeThPoints[0].x * m_Proj_Matri[1][0] +
+		m_CubeThPoints[0].y * m_Proj_Matri[1][1] +
+		m_CubeThPoints[0].z * m_Proj_Matri[1][2] +
+		m_Proj_Matri[1][3];
+
+	//第二个顶点
+	m_Cube2DPoints[1].x = 
+		m_CubeThPoints[1].x * m_Proj_Matri[0][0] +
+		m_CubeThPoints[1].y * m_Proj_Matri[0][1] +
+		m_CubeThPoints[1].z * m_Proj_Matri[0][2] +
+		m_Proj_Matri[0][3];
+	m_Cube2DPoints[1].y =
+		m_CubeThPoints[1].x * m_Proj_Matri[1][0] +
+		m_CubeThPoints[1].y * m_Proj_Matri[1][1] +
+		m_CubeThPoints[1].z * m_Proj_Matri[1][2] +
+		m_Proj_Matri[1][3];
+
+	//第三个顶点
+	m_Cube2DPoints[2].x =
+		m_CubeThPoints[2].x * m_Proj_Matri[0][0] +
+		m_CubeThPoints[2].y * m_Proj_Matri[0][1] +
+		m_CubeThPoints[2].z * m_Proj_Matri[0][2] +
+		m_Proj_Matri[0][3];
+	m_Cube2DPoints[2].y =
+		m_CubeThPoints[2].x * m_Proj_Matri[1][0] +
+		m_CubeThPoints[2].y * m_Proj_Matri[1][1] +
+		m_CubeThPoints[2].z * m_Proj_Matri[1][2] +
+		m_Proj_Matri[1][3];
+
+	//第四个顶点
+	m_Cube2DPoints[3].x =
+		m_CubeThPoints[3].x * m_Proj_Matri[0][0] +
+		m_CubeThPoints[3].y * m_Proj_Matri[0][1] +
+		m_CubeThPoints[3].z * m_Proj_Matri[0][2] +
+		m_Proj_Matri[0][3];
+	m_Cube2DPoints[3].y =
+		m_CubeThPoints[3].x * m_Proj_Matri[1][0] +
+		m_CubeThPoints[3].y * m_Proj_Matri[1][1] +
+		m_CubeThPoints[3].z * m_Proj_Matri[1][2] +
+		m_Proj_Matri[1][3];
+
+	//第五个顶点
+	m_Cube2DPoints[4].x =
+		m_CubeThPoints[4].x * m_Proj_Matri[0][0] +
+		m_CubeThPoints[4].y * m_Proj_Matri[0][1] +
+		m_CubeThPoints[4].z * m_Proj_Matri[0][2] +
+		m_Proj_Matri[0][3];
+	m_Cube2DPoints[4].y =
+		m_CubeThPoints[4].x * m_Proj_Matri[1][0] +
+		m_CubeThPoints[4].y * m_Proj_Matri[1][1] +
+		m_CubeThPoints[4].z * m_Proj_Matri[1][2] +
+		m_Proj_Matri[1][3];
+
+	//第六个顶点
+	m_Cube2DPoints[5].x =
+		m_CubeThPoints[5].x * m_Proj_Matri[0][0] +
+		m_CubeThPoints[5].y * m_Proj_Matri[0][1] +
+		m_CubeThPoints[5].z * m_Proj_Matri[0][2] +
+		m_Proj_Matri[0][3];
+	m_Cube2DPoints[5].y =
+		m_CubeThPoints[5].x * m_Proj_Matri[1][0] +
+		m_CubeThPoints[5].y * m_Proj_Matri[1][1] +
+		m_CubeThPoints[5].z * m_Proj_Matri[1][2] +
+		m_Proj_Matri[1][3];
+
+	//第七个顶点
+	m_Cube2DPoints[6].x =
+		m_CubeThPoints[6].x * m_Proj_Matri[0][0] +
+		m_CubeThPoints[6].y * m_Proj_Matri[0][1] +
+		m_CubeThPoints[6].z * m_Proj_Matri[0][2] +
+		m_Proj_Matri[0][3];
+	m_Cube2DPoints[6].y =
+		m_CubeThPoints[6].x * m_Proj_Matri[1][0] +
+		m_CubeThPoints[6].y * m_Proj_Matri[1][1] +
+		m_CubeThPoints[6].z * m_Proj_Matri[1][2] +
+		m_Proj_Matri[1][3];
+
+	//第八个顶点
+	m_Cube2DPoints[7].x =
+		m_CubeThPoints[7].x * m_Proj_Matri[0][0] +
+		m_CubeThPoints[7].y * m_Proj_Matri[0][1] +
+		m_CubeThPoints[7].z * m_Proj_Matri[0][2] +
+		m_Proj_Matri[0][3];
+	m_Cube2DPoints[7].y =
+		m_CubeThPoints[7].x * m_Proj_Matri[1][0] +
+		m_CubeThPoints[7].y * m_Proj_Matri[1][1] +
+		m_CubeThPoints[7].z * m_Proj_Matri[1][2] +
+		m_Proj_Matri[1][3];
+}
+
+
+//画矩形
+void CCGWORK0933View::DrawRect(CPoint p1, CPoint p2, CPoint p3, CPoint p4) {
+	CClientDC dc(this);
+	dc.MoveTo(p1);
+	dc.LineTo(p2);
+	dc.LineTo(p3);
+	dc.LineTo(p4);
+	dc.LineTo(p1);
+}
+
+//画立方体
+void CCGWORK0933View::DrawCube() {
+	DrawRect(m_Cube2DPoints[1-1], m_Cube2DPoints[2-1], m_Cube2DPoints[6-1], m_Cube2DPoints[5-1]);
+	DrawRect(m_Cube2DPoints[2-1], m_Cube2DPoints[4-1], m_Cube2DPoints[8-1], m_Cube2DPoints[6-1]);
+	DrawRect(m_Cube2DPoints[4-1], m_Cube2DPoints[8-1], m_Cube2DPoints[7-1], m_Cube2DPoints[3-1]);
+	DrawRect(m_Cube2DPoints[1-1], m_Cube2DPoints[3-1], m_Cube2DPoints[7-1], m_Cube2DPoints[5-1]);
+	DrawRect(m_Cube2DPoints[5-1], m_Cube2DPoints[6-1], m_Cube2DPoints[8-1], m_Cube2DPoints[7-1]);
+	//DrawRect(m_Cube2DPoints[1-1], m_Cube2DPoints[2-1], m_Cube2DPoints[3-1], m_Cube2DPoints[4-1]);
 }
