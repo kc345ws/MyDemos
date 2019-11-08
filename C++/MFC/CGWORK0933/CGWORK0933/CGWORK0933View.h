@@ -4,6 +4,7 @@
 
 #pragma once
 #include <list>
+#include <random>
 
 class ThPoint {
 public:
@@ -99,32 +100,26 @@ public:
 	afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg void OnDrawCube();
 //	afx_msg void OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/);
-	afx_msg void OnSize(UINT nType, int cx, int cy);
-	int cxClient;
-	int cyClient;
-	void ShadowTrans(int degree);
-	void DrawRect(CPoint p1, CPoint p2, CPoint p3, CPoint p4);//画矩形
+//	afx_msg void OnSize(UINT nType, int cx, int cy);
+//	int cxClient;
+//	int cyClient;
+	void DrawRect(CPoint p1, CPoint p2, CPoint p3, CPoint p4,bool isfill = true);//画矩形
 	void DrawCube();//画立方体
+	void From3dTo2d();//从二维坐标转换为三维坐标
+	void Fill(CPoint[]);//填充立方体的面
 
 	
 	ThPoint m_CubeThPoints[8];
 	CPoint m_Cube2DPoints[8];//立方体顶点2D坐标
-	void Perspective();
+	void Perspective();//透视投影矩阵
+	void ClearScreen();//清屏
 
 	// 投影矩阵
 	double m_Proj_Matri[4][4];
-	void From3dTo2d();
-};
-
-//三维坐标
-/*struct ThPoint
-{
-	int x;
-	int y;
-	int z;
-
 	
-};*/
+	afx_msg void OnRoatez();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
+};
 
 
 #ifndef _DEBUG  // CGWORK0933View.cpp 中的调试版本

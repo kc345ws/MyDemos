@@ -18,6 +18,7 @@
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
+#define PI 3.1415926
 #endif
 
 using namespace std;
@@ -46,7 +47,8 @@ BEGIN_MESSAGE_MAP(CCGWORK0933View, CView)
 	ON_WM_KEYDOWN()
 	ON_COMMAND(ID_DRAW_CUBE, &CCGWORK0933View::OnDrawCube)
 //	ON_WM_CONTEXTMENU()
-ON_WM_SIZE()
+//ON_WM_SIZE()
+ON_COMMAND(ID_RoateZ, &CCGWORK0933View::OnRoatez)
 END_MESSAGE_MAP()
 
 // CCGWORK0933View 构造/析构
@@ -65,10 +67,10 @@ CCGWORK0933View::CCGWORK0933View() noexcept
 
 	m_PolyCount = 0;
 	m_PloyCpoints = list<CPoint>();
-	cxClient = 0;
-	cyClient = 0;
+	//  cxClient = 0;
+	//  cyClient = 0;
 
-	
+
 
 	/*-----------------正方体三维坐标------------------*/
 	m_CubeThPoints[0] = ThPoint(0, 0, 0);
@@ -79,7 +81,7 @@ CCGWORK0933View::CCGWORK0933View() noexcept
 	m_CubeThPoints[5] = ThPoint(100, 100, 0);
 	m_CubeThPoints[6] = ThPoint(0, 100, 100);
 	m_CubeThPoints[7] = ThPoint(100, 100, 100);
-	
+
 	//m_CubeThPoints[4].x = 100;
 	/*-----------------正方体三维坐标------------------*/
 	Perspective();//透视投影矩阵
@@ -507,141 +509,6 @@ void CCGWORK0933View::OnInvalidate()
 	Invalidate(true);
 }
 
-
-
-
-
-
-
-
-/*
-void CCGWORK0933View::Fill(CDC*& pDC, int x, int y, COLORREF& oldColor, COLORREF& newColor)
-{
-	// TODO: 在此处添加实现代码.
-	stack<Seed> sp;
-	PolyGon
-
-	int xl, xr;
-
-	bool spanNeedfill;
-
-	Seed pt;
-
-	pt.x = x; pt.y = y;
-
-	sp.push(pt);
-
-	while (!sp.empty())
-
-	{
-
-		pt = sp.top(); sp.pop();
-
-		y = pt.y; x = pt.x;
-
-		while (pDC->GetPixel(x, y) == oldColor)//向右填充
-
-		{
-
-			pDC->SetPixel(x, y, newColor);
-
-			x++;
-
-		}
-
-		xr = x - 1; x = pt.x - 1;
-
-		while (pDC->GetPixel(x, y) == oldColor)//向左填充
-
-		{
-
-			pDC->SetPixel(x, y, newColor);
-
-			x--;
-
-		}
-
-		xl = x + 1;
-
-		//处理上面一条扫描线
-
-		x = xl; y = y + 1;
-
-		while (x <= xr)
-
-		{
-
-			spanNeedfill = false;
-
-			while (pDC->GetPixel(x, y) == oldColor)
-
-			{
-
-				spanNeedfill = true;
-
-				x++;
-
-			}
-
-			if (spanNeedfill)
-
-			{
-
-				pt.x = x - 1; pt.y = y;
-
-				sp.push(pt);
-
-				spanNeedfill = false;
-
-			}
-
-			while ((pDC->GetPixel(x, y) != oldColor) && x <= xr) x++;
-
-		}
-
-
-
-		//处理下面一条扫描线
-
-		x = xl; y = y - 2;
-
-		while (x <= xr)
-
-		{
-
-			spanNeedfill = false;
-
-			while (pDC->GetPixel(x, y) == oldColor)
-
-			{
-
-				spanNeedfill = true;
-
-				x++;
-
-			}
-
-			if (spanNeedfill)
-
-			{
-
-				pt.x = x - 1; pt.y = y;
-
-				sp.push(pt);
-
-				spanNeedfill = false;
-
-			}
-
-			while ((pDC->GetPixel(x, y) != oldColor) && x <= xr) x++;
-
-		}
-
-	}
-}
-*/
-
-
 //键盘按键按下时的消息
 void CCGWORK0933View::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
@@ -659,19 +526,34 @@ void CCGWORK0933View::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	
 	invilidate无效化窗口从而调用ondraw，使得画面再次重画
 	*/
-	if (nChar == VK_LEFT) {
 
+	double deltax = 5.0;
+	double deltay = 5.0;
+	//OnInvalidate();
+	ClearScreen();
+	if (nChar == VK_LEFT) {
+		for (int i = 0; i < 8; i++) {
+			m_Cube2DPoints[i].x -= deltax;
+		}
 	}
 	else if (nChar == VK_RIGHT) {
-
+		for (int i = 0; i < 8; i++) {
+			m_Cube2DPoints[i].x += deltax;	
+		}
 	}
 	else if (nChar == VK_UP) {
-
+		for (int i = 0; i < 8; i++) {
+			m_Cube2DPoints[i].y -= deltax;
+		}
 	}
 	else if (nChar == VK_DOWN) {
-
+		for (int i = 0; i < 8; i++) {
+			m_Cube2DPoints[i].y += deltax;
+		}
 	}
+	DrawCube();
 
+	
 }
 
 //绘制立方体
@@ -679,49 +561,7 @@ void CCGWORK0933View::OnDrawCube()
 {
 	// TODO: 在此添加命令处理程序代码
 	DrawCube();
-	/*CClientDC *cdc = (CClientDC*)GetDC();
-	//cdc->SetViewportOrg()
-	cdc->SetViewportOrg(cxClient / 2, cyClient / 2);
-	cdc->MoveTo(-cxClient / 2, 0);
-	cdc->LineTo(cxClient / 2, 0);
-	cdc->MoveTo(0, -cyClient / 2);
-	cdc->LineTo(0, cyClient / 2);
-	
-
-
-	ReleaseDC(cdc);*/
 }
-
-
-//void CCGWORK0933View::OnContextMenu(CWnd* /*pWnd*/, CPoint /*point*/)
-//{
-//	// TODO: 在此处添加消息处理程序代码
-//}
-
-//获取屏幕大小
-void CCGWORK0933View::OnSize(UINT nType, int cx, int cy)
-{
-	CView::OnSize(nType, cx, cy);
-
-	// TODO: 在此处添加消息处理程序代码
-	cxClient = cx;
-	cyClient = cy;
-
-	ShadowTrans(-45);
-
-
-}
-
-//立方体数据结构 数组[8] 结构体x,y,z
-//进行投影变换，变为二维坐标
-//正方体透视投影
-void CCGWORK0933View::ShadowTrans(int degree)
-{
-	// TODO: 在此处添加实现代码.
-
-}
-
-
 
 //透视投影矩阵
 void CCGWORK0933View::Perspective()
@@ -741,21 +581,22 @@ void CCGWORK0933View::Perspective()
 	m_Proj_Matri[0][2] = x0/d;
 	m_Proj_Matri[0][3] = 0;
 
+	//第二列
 	m_Proj_Matri[1][0] = 0;
 	m_Proj_Matri[1][1] = 1;
 	m_Proj_Matri[1][2] = y0/d;
 	m_Proj_Matri[1][3] = 0;
 
+	//第三列
 	m_Proj_Matri[2][0] = 0;
 	m_Proj_Matri[2][1] = 0;
 	m_Proj_Matri[2][2] = 0;
 	m_Proj_Matri[2][3] = 0;
 
+	//第四列
 	m_Proj_Matri[3][0] = 0;
 	m_Proj_Matri[3][1] = 0;
 	m_Proj_Matri[3][2] = 1.0/d;
-	//m_Proj_Matri[3][3] = 0;
-
 	m_Proj_Matri[3][3] = 1;
 
 
@@ -766,7 +607,7 @@ void CCGWORK0933View::Perspective()
 void CCGWORK0933View::From3dTo2d()
 {
 	// TODO: 在此处添加实现代码.
-
+	
 	//第一个顶点
 	m_Cube2DPoints[0].x = 
 		m_CubeThPoints[0].x * m_Proj_Matri[0][0] +
@@ -866,13 +707,59 @@ void CCGWORK0933View::From3dTo2d()
 
 
 //画矩形
-void CCGWORK0933View::DrawRect(CPoint p1, CPoint p2, CPoint p3, CPoint p4) {
+void CCGWORK0933View::DrawRect(CPoint p1, CPoint p2, CPoint p3, CPoint p4 , bool isfill) {
 	CClientDC dc(this);
 	dc.MoveTo(p1);
 	dc.LineTo(p2);
 	dc.LineTo(p3);
 	dc.LineTo(p4);
 	dc.LineTo(p1);
+	
+	if (isfill) {
+		CRgn crgn;
+		//CPoint *cpoint = new CPoint[4];
+		CPoint cpoint[4];
+		cpoint[0] = p1;
+		cpoint[1] = p2;
+		cpoint[2] = p3;
+		cpoint[3] = p4;
+		Fill(cpoint);
+	}
+	/*CBrush cBrush(RGB(234, 45, 23));
+	if (crgn.CreatePolygonRgn(cpoint, 4, ALTERNATE))
+	{
+		dc.MoveTo(cpoint[0]);
+		dc.FillRgn(&crgn, &cBrush);
+		for (int i = 0; i < 4 - 1; i++) {
+			dc.MoveTo(cpoint[i]);
+			dc.LineTo(cpoint[i + 1]);
+		}
+		dc.MoveTo(cpoint[4 - 1]);
+		dc.LineTo(cpoint[0]);
+	}*/
+}
+
+void CCGWORK0933View::Fill(CPoint cpoints[]) {
+	CClientDC dc(this);
+	CRgn crgn;
+
+	//srand(time(NULL)); //为rand函数提供种子
+	//printf("%d\n", rand() % 10); //输出一个随机数，范围为0-9
+	//printf("%d\n", rand() % 10 + 1); //输出一个随机数，范围为1-10
+	static default_random_engine e; //随机数引擎类
+	static uniform_int_distribution<unsigned> u(0, 255);//0-255
+	CBrush cBrush(RGB(u(e), u(e), u(e)));
+	if (crgn.CreatePolygonRgn(cpoints, 4, ALTERNATE))
+	{
+		dc.MoveTo(cpoints[0]);
+		dc.FillRgn(&crgn, &cBrush);
+		for (int i = 0; i < 4 - 1; i++) {
+			dc.MoveTo(cpoints[i]);
+			dc.LineTo(cpoints[i + 1]);
+		}
+		dc.MoveTo(cpoints[4 - 1]);
+		dc.LineTo(cpoints[0]);
+	}
 }
 
 //画立方体
@@ -882,5 +769,148 @@ void CCGWORK0933View::DrawCube() {
 	DrawRect(m_Cube2DPoints[4-1], m_Cube2DPoints[8-1], m_Cube2DPoints[7-1], m_Cube2DPoints[3-1]);
 	DrawRect(m_Cube2DPoints[1-1], m_Cube2DPoints[3-1], m_Cube2DPoints[7-1], m_Cube2DPoints[5-1]);
 	DrawRect(m_Cube2DPoints[5-1], m_Cube2DPoints[6-1], m_Cube2DPoints[8-1], m_Cube2DPoints[7-1]);
-	//DrawRect(m_Cube2DPoints[1-1], m_Cube2DPoints[2-1], m_Cube2DPoints[3-1], m_Cube2DPoints[4-1]);
+	DrawRect(m_Cube2DPoints[1-1], m_Cube2DPoints[2-1], m_Cube2DPoints[4-1], m_Cube2DPoints[3-1]);
+
+	/*重新绘制*/
+	DrawRect(m_Cube2DPoints[1 - 1], m_Cube2DPoints[2 - 1], m_Cube2DPoints[6 - 1], m_Cube2DPoints[5 - 1], false);
+	DrawRect(m_Cube2DPoints[2 - 1], m_Cube2DPoints[4 - 1], m_Cube2DPoints[8 - 1], m_Cube2DPoints[6 - 1], false);
+	DrawRect(m_Cube2DPoints[4 - 1], m_Cube2DPoints[8 - 1], m_Cube2DPoints[7 - 1], m_Cube2DPoints[3 - 1], false);
+	DrawRect(m_Cube2DPoints[1 - 1], m_Cube2DPoints[3 - 1], m_Cube2DPoints[7 - 1], m_Cube2DPoints[5 - 1], false);
+	DrawRect(m_Cube2DPoints[5 - 1], m_Cube2DPoints[6 - 1], m_Cube2DPoints[8 - 1], m_Cube2DPoints[7 - 1], false);
+	DrawRect(m_Cube2DPoints[1 - 1], m_Cube2DPoints[2 - 1], m_Cube2DPoints[4 - 1], m_Cube2DPoints[3 - 1], false);
+}
+
+void CCGWORK0933View::ClearScreen()
+{
+	// TODO: 在此处添加实现代码.
+	CClientDC dc(this);
+	CRect window;
+	GetClientRect(window);
+	//SelectStockObject只能把有限的几种对象选入设备环境，
+	//而SelectObject是可以把任意GDI对象选入设备环境的啊
+	dc.SelectStockObject(WHITE_PEN);
+	dc.SelectStockObject(WHITE_BRUSH);
+	dc.Rectangle(window);
+}
+
+
+
+
+
+BOOL CCGWORK0933View::PreTranslateMessage(MSG* pMsg)
+{
+	// TODO: 在此添加专用代码和/或调用基类
+	if (WM_KEYFIRST <= pMsg->message && pMsg->message <= WM_KEYLAST) {
+		//确定是键盘事件
+		double Alpha = 5;
+		Alpha *= PI / 180;
+		double c = cos(Alpha);
+		double s = sin(Alpha);
+		double x;
+		double y;
+		//旋转3D坐标下的立方体
+		if (pMsg->lParam == 1966081) {//A
+			for (int i = 0; i < 8; i++) {
+				x = m_CubeThPoints[i].x;
+				y = m_CubeThPoints[i].y;
+				m_CubeThPoints[i].x = x * c - y * s;
+			}
+			for (int i = 0; i < 8; i++) {
+				x = m_CubeThPoints[i].x;
+				y = m_CubeThPoints[i].y;
+				m_CubeThPoints[i].y = x * s + y * c;
+			}
+
+			OnRoatez();
+		}
+		else if (pMsg->lParam == 2490369) {//L
+
+			for (int i = 0; i < 8; i++) {
+				x = m_CubeThPoints[i].x;
+				y = m_CubeThPoints[i].y;
+				m_CubeThPoints[i].x = -1* (x * c - y * s);
+			}
+			for (int i = 0; i < 8; i++) {
+				x = m_CubeThPoints[i].x;
+				y = m_CubeThPoints[i].y;
+				m_CubeThPoints[i].y = -1 * (x * s + y * c);
+			}
+			OnRoatez();
+		}
+	}
+	
+	return CView::PreTranslateMessage(pMsg);
+}
+
+//立方体绕Z轴旋转变换矩阵
+void CCGWORK0933View::OnRoatez()
+{
+	ClearScreen();
+	// TODO: 在此添加命令处理程序代码
+	/*double L = 2 / sqrt(3);
+	double Alpha = 20;
+	Alpha *= PI / 180;
+	double c = cos(Alpha);
+	double s = sin(Alpha);
+
+	//第一列
+	m_Proj_Matri[0][0] = 1;
+	m_Proj_Matri[0][1] = 0;
+	m_Proj_Matri[0][2] = L * c;
+	m_Proj_Matri[0][3] = 0;
+
+	//第二列
+	m_Proj_Matri[1][0] = 0;
+	m_Proj_Matri[1][1] = 1;
+	m_Proj_Matri[1][2] = L * s;
+	m_Proj_Matri[1][3] = 0;
+
+	//第三列
+	m_Proj_Matri[2][0] = 0;
+	m_Proj_Matri[2][1] = 0;
+	m_Proj_Matri[2][2] = 0;
+	m_Proj_Matri[2][3] = 0;
+
+	//第四列
+	m_Proj_Matri[3][0] = 0;
+	m_Proj_Matri[3][1] = 0;
+	m_Proj_Matri[3][2] = 0;
+	m_Proj_Matri[3][3] = 1;
+
+	From3dTo2d();
+	DrawCube();*/
+
+	//double L = 2 / sqrt(3);
+	double Alpha = 5;
+	Alpha *= PI / 180;
+	double c = cos(Alpha);
+	double s = sin(Alpha);
+
+	//第一列
+	m_Proj_Matri[0][0] = c;
+	m_Proj_Matri[0][1] = -1 * s;
+	m_Proj_Matri[0][2] = 0;
+	m_Proj_Matri[0][3] = 0;
+
+	//第二列
+	m_Proj_Matri[1][0] = s;
+	m_Proj_Matri[1][1] = c;
+	m_Proj_Matri[1][2] = 0;
+	m_Proj_Matri[1][3] = 0;
+
+	//第三列
+	m_Proj_Matri[2][0] = 0;
+	m_Proj_Matri[2][1] = 0;
+	m_Proj_Matri[2][2] = 1;
+	m_Proj_Matri[2][3] = 0;
+
+	//第四列
+	m_Proj_Matri[3][0] = 0;
+	m_Proj_Matri[3][1] = 0;
+	m_Proj_Matri[3][2] = 0;
+	m_Proj_Matri[3][3] = 1;
+
+	Perspective();
+	From3dTo2d();
+	DrawCube();
 }
