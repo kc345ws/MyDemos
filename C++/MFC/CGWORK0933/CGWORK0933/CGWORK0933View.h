@@ -8,11 +8,20 @@
 
 class ThPoint {
 public:
-	int x;
+	/*int x;
 	int y;
 	int z;
 
 	ThPoint(int x, int y, int z) {
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	}*/
+	double x;
+	double y;
+	double z;
+
+	ThPoint(double x, double y, double z) {
 		this->x = x;
 		this->y = y;
 		this->z = z;
@@ -81,6 +90,11 @@ public:
 		RECTANGLE,
 		CIRCULAR
 	};
+	enum RoateTypes {
+		Roate_X,
+		Roate_Y,
+		Roate_Z//Z轴旋转
+	};
 	afx_msg void OnDrawLine();//画直线
 	afx_msg void OnDrawCircular();//画圆形
 	afx_msg void OnDrawSetColor();//设置画笔颜色
@@ -117,8 +131,11 @@ public:
 	// 投影矩阵
 	double m_Proj_Matri[4][4];
 	
-	afx_msg void OnRoatez();
+	afx_msg void OnRoatez();//Z轴旋转
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	int m_RoateType;//旋转方式
+	afx_msg void OnRoatex();
+	afx_msg void OnRoatey();
 };
 
 

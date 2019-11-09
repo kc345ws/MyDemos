@@ -49,6 +49,8 @@ BEGIN_MESSAGE_MAP(CCGWORK0933View, CView)
 //	ON_WM_CONTEXTMENU()
 //ON_WM_SIZE()
 ON_COMMAND(ID_RoateZ, &CCGWORK0933View::OnRoatez)
+ON_COMMAND(ID_RoateX, &CCGWORK0933View::OnRoatex)
+ON_COMMAND(ID_RoateY, &CCGWORK0933View::OnRoatey)
 END_MESSAGE_MAP()
 
 // CCGWORK0933View 构造/析构
@@ -66,6 +68,7 @@ CCGWORK0933View::CCGWORK0933View() noexcept
 	m_isDrawPoly = false;
 
 	m_PolyCount = 0;
+	m_RoateType = Roate_X;//默认绕X轴旋转
 	m_PloyCpoints = list<CPoint>();
 	//  cxClient = 0;
 	//  cyClient = 0;
@@ -73,15 +76,22 @@ CCGWORK0933View::CCGWORK0933View() noexcept
 
 
 	/*-----------------正方体三维坐标------------------*/
-	m_CubeThPoints[0] = ThPoint(0, 0, 0);
+	/*m_CubeThPoints[0] = ThPoint(0, 0, 0);
 	m_CubeThPoints[1] = ThPoint(100, 0, 0);
 	m_CubeThPoints[2] = ThPoint(0, 0, 100);
 	m_CubeThPoints[3] = ThPoint(100, 0, 100);
 	m_CubeThPoints[4] = ThPoint(0, 100, 0);
 	m_CubeThPoints[5] = ThPoint(100, 100, 0);
 	m_CubeThPoints[6] = ThPoint(0, 100, 100);
-	m_CubeThPoints[7] = ThPoint(100, 100, 100);
-
+	m_CubeThPoints[7] = ThPoint(100, 100, 100);*/
+	m_CubeThPoints[0] = ThPoint(0+200, 0 + 200, 0 + 200);
+	m_CubeThPoints[1] = ThPoint(100 + 200, 0 + 200, 0 + 200);
+	m_CubeThPoints[2] = ThPoint(0 + 200, 0 + 200, 100 + 200);
+	m_CubeThPoints[3] = ThPoint(100 + 200, 0 + 200, 100 + 200);
+	m_CubeThPoints[4] = ThPoint(0 + 200, 100 + 200, 0 + 200);
+	m_CubeThPoints[5] = ThPoint(100 + 200, 100 + 200, 0 + 200);
+	m_CubeThPoints[6] = ThPoint(0 + 200, 100 + 200, 100 + 200);
+	m_CubeThPoints[7] = ThPoint(100 + 200, 100 + 200, 100 + 200);
 	//m_CubeThPoints[4].x = 100;
 	/*-----------------正方体三维坐标------------------*/
 	Perspective();//透视投影矩阵
@@ -533,24 +543,28 @@ void CCGWORK0933View::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	ClearScreen();
 	if (nChar == VK_LEFT) {
 		for (int i = 0; i < 8; i++) {
-			m_Cube2DPoints[i].x -= deltax;
+			//m_Cube2DPoints[i].x -= deltax;
+			m_CubeThPoints[i].x -= deltax;
 		}
 	}
 	else if (nChar == VK_RIGHT) {
 		for (int i = 0; i < 8; i++) {
-			m_Cube2DPoints[i].x += deltax;	
+			//m_Cube2DPoints[i].x += deltax;
+			m_CubeThPoints[i].x += deltax;
 		}
 	}
 	else if (nChar == VK_UP) {
 		for (int i = 0; i < 8; i++) {
-			m_Cube2DPoints[i].y -= deltax;
+			m_CubeThPoints[i].y -= deltax;
 		}
 	}
 	else if (nChar == VK_DOWN) {
 		for (int i = 0; i < 8; i++) {
-			m_Cube2DPoints[i].y += deltax;
+			//m_Cube2DPoints[i].y += deltax;
+			m_CubeThPoints[i].y += deltax;
 		}
 	}
+	From3dTo2d();
 	DrawCube();
 
 	
@@ -610,99 +624,99 @@ void CCGWORK0933View::From3dTo2d()
 	
 	//第一个顶点
 	m_Cube2DPoints[0].x = 
-		m_CubeThPoints[0].x * m_Proj_Matri[0][0] +
+		((m_CubeThPoints[0].x * m_Proj_Matri[0][0] +
 		m_CubeThPoints[0].y * m_Proj_Matri[0][1] + 
 		m_CubeThPoints[0].z * m_Proj_Matri[0][2] + 
-		m_Proj_Matri[0][3];
+		m_Proj_Matri[0][3])+0.5)/1;
 	m_Cube2DPoints[0].y =
-		m_CubeThPoints[0].x * m_Proj_Matri[1][0] +
+		((m_CubeThPoints[0].x * m_Proj_Matri[1][0] +
 		m_CubeThPoints[0].y * m_Proj_Matri[1][1] +
 		m_CubeThPoints[0].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3];
+		m_Proj_Matri[1][3])+0.5)/1;
 
 	//第二个顶点
 	m_Cube2DPoints[1].x = 
-		m_CubeThPoints[1].x * m_Proj_Matri[0][0] +
+		((m_CubeThPoints[1].x * m_Proj_Matri[0][0] +
 		m_CubeThPoints[1].y * m_Proj_Matri[0][1] +
 		m_CubeThPoints[1].z * m_Proj_Matri[0][2] +
-		m_Proj_Matri[0][3];
+		m_Proj_Matri[0][3])+0.5)/1;
 	m_Cube2DPoints[1].y =
-		m_CubeThPoints[1].x * m_Proj_Matri[1][0] +
+		((m_CubeThPoints[1].x * m_Proj_Matri[1][0] +
 		m_CubeThPoints[1].y * m_Proj_Matri[1][1] +
 		m_CubeThPoints[1].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3];
+		m_Proj_Matri[1][3])+0.5)/1;
 
 	//第三个顶点
 	m_Cube2DPoints[2].x =
-		m_CubeThPoints[2].x * m_Proj_Matri[0][0] +
+		((m_CubeThPoints[2].x * m_Proj_Matri[0][0] +
 		m_CubeThPoints[2].y * m_Proj_Matri[0][1] +
 		m_CubeThPoints[2].z * m_Proj_Matri[0][2] +
-		m_Proj_Matri[0][3];
+		m_Proj_Matri[0][3])+0.5)/1;
 	m_Cube2DPoints[2].y =
-		m_CubeThPoints[2].x * m_Proj_Matri[1][0] +
+		((m_CubeThPoints[2].x * m_Proj_Matri[1][0] +
 		m_CubeThPoints[2].y * m_Proj_Matri[1][1] +
 		m_CubeThPoints[2].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3];
+		m_Proj_Matri[1][3])+0.5)/1;
 
 	//第四个顶点
 	m_Cube2DPoints[3].x =
-		m_CubeThPoints[3].x * m_Proj_Matri[0][0] +
-		m_CubeThPoints[3].y * m_Proj_Matri[0][1] +
-		m_CubeThPoints[3].z * m_Proj_Matri[0][2] +
-		m_Proj_Matri[0][3];
+		((m_CubeThPoints[3].x * m_Proj_Matri[0][0] +
+			m_CubeThPoints[3].y * m_Proj_Matri[0][1] +
+			m_CubeThPoints[3].z * m_Proj_Matri[0][2] +
+			m_Proj_Matri[0][3] + 0.5)) / 1;
 	m_Cube2DPoints[3].y =
-		m_CubeThPoints[3].x * m_Proj_Matri[1][0] +
+		((m_CubeThPoints[3].x * m_Proj_Matri[1][0] +
 		m_CubeThPoints[3].y * m_Proj_Matri[1][1] +
 		m_CubeThPoints[3].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3];
+		m_Proj_Matri[1][3])+0.5)/1;
 
 	//第五个顶点
 	m_Cube2DPoints[4].x =
-		m_CubeThPoints[4].x * m_Proj_Matri[0][0] +
+		((m_CubeThPoints[4].x * m_Proj_Matri[0][0] +
 		m_CubeThPoints[4].y * m_Proj_Matri[0][1] +
 		m_CubeThPoints[4].z * m_Proj_Matri[0][2] +
-		m_Proj_Matri[0][3];
+		m_Proj_Matri[0][3])+0.5)/1;
 	m_Cube2DPoints[4].y =
-		m_CubeThPoints[4].x * m_Proj_Matri[1][0] +
+		((m_CubeThPoints[4].x * m_Proj_Matri[1][0] +
 		m_CubeThPoints[4].y * m_Proj_Matri[1][1] +
 		m_CubeThPoints[4].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3];
+		m_Proj_Matri[1][3])+0.5)/1;
 
 	//第六个顶点
 	m_Cube2DPoints[5].x =
-		m_CubeThPoints[5].x * m_Proj_Matri[0][0] +
+		((m_CubeThPoints[5].x * m_Proj_Matri[0][0] +
 		m_CubeThPoints[5].y * m_Proj_Matri[0][1] +
 		m_CubeThPoints[5].z * m_Proj_Matri[0][2] +
-		m_Proj_Matri[0][3];
+		m_Proj_Matri[0][3])+0.5)/1;
 	m_Cube2DPoints[5].y =
-		m_CubeThPoints[5].x * m_Proj_Matri[1][0] +
+		((m_CubeThPoints[5].x * m_Proj_Matri[1][0] +
 		m_CubeThPoints[5].y * m_Proj_Matri[1][1] +
 		m_CubeThPoints[5].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3];
+		m_Proj_Matri[1][3])+0.5)/1;
 
 	//第七个顶点
 	m_Cube2DPoints[6].x =
-		m_CubeThPoints[6].x * m_Proj_Matri[0][0] +
+		((m_CubeThPoints[6].x * m_Proj_Matri[0][0] +
 		m_CubeThPoints[6].y * m_Proj_Matri[0][1] +
 		m_CubeThPoints[6].z * m_Proj_Matri[0][2] +
-		m_Proj_Matri[0][3];
+		m_Proj_Matri[0][3])+0.5)/1;
 	m_Cube2DPoints[6].y =
-		m_CubeThPoints[6].x * m_Proj_Matri[1][0] +
+		((m_CubeThPoints[6].x * m_Proj_Matri[1][0] +
 		m_CubeThPoints[6].y * m_Proj_Matri[1][1] +
 		m_CubeThPoints[6].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3];
+		m_Proj_Matri[1][3])+0.5)/1;
 
 	//第八个顶点
 	m_Cube2DPoints[7].x =
-		m_CubeThPoints[7].x * m_Proj_Matri[0][0] +
+		((m_CubeThPoints[7].x * m_Proj_Matri[0][0] +
 		m_CubeThPoints[7].y * m_Proj_Matri[0][1] +
 		m_CubeThPoints[7].z * m_Proj_Matri[0][2] +
-		m_Proj_Matri[0][3];
+		m_Proj_Matri[0][3])+0.5)/1;
 	m_Cube2DPoints[7].y =
-		m_CubeThPoints[7].x * m_Proj_Matri[1][0] +
+		((m_CubeThPoints[7].x * m_Proj_Matri[1][0] +
 		m_CubeThPoints[7].y * m_Proj_Matri[1][1] +
 		m_CubeThPoints[7].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3];
+		m_Proj_Matri[1][3])+0.5)/1;
 }
 
 
@@ -806,36 +820,103 @@ BOOL CCGWORK0933View::PreTranslateMessage(MSG* pMsg)
 		Alpha *= PI / 180;
 		double c = cos(Alpha);
 		double s = sin(Alpha);
+		double reversec = cos(-1*Alpha);//反向旋转
+		double reverses = sin(-1*Alpha);
 		double x;
 		double y;
+		double z;
 		//旋转3D坐标下的立方体
 		if (pMsg->lParam == 1966081) {//A
-			for (int i = 0; i < 8; i++) {
-				x = m_CubeThPoints[i].x;
-				y = m_CubeThPoints[i].y;
-				m_CubeThPoints[i].x = x * c - y * s;
-			}
-			for (int i = 0; i < 8; i++) {
-				x = m_CubeThPoints[i].x;
-				y = m_CubeThPoints[i].y;
-				m_CubeThPoints[i].y = x * s + y * c;
+			//Z轴正向旋转
+			if (m_RoateType == Roate_Z) {
+				for (int i = 0; i < 8; i++) {
+					x = m_CubeThPoints[i].x;
+					y = m_CubeThPoints[i].y;
+					m_CubeThPoints[i].x = x * c - y * s;
+				}
+				for (int i = 0; i < 8; i++) {
+					x = m_CubeThPoints[i].x;
+					y = m_CubeThPoints[i].y;
+					m_CubeThPoints[i].y = x * s + y * c;
+				}
+				OnRoatez();
 			}
 
-			OnRoatez();
+			//X轴正向旋转
+			else if (m_RoateType == Roate_X) {
+				for (int i = 0; i < 8; i++) {//第二列
+					y = m_CubeThPoints[i].y;
+					z = m_CubeThPoints[i].z;
+					m_CubeThPoints[i].y = y * c - z * s;
+				}
+				for (int i = 0; i < 8; i++) {//第三列
+					y = m_CubeThPoints[i].y;
+					z = m_CubeThPoints[i].z;
+					m_CubeThPoints[i].z = y * s + z * c;
+				}
+				OnRoatex();
+			}
+
+			//Y轴正向旋转
+			else if (m_RoateType == Roate_Y) {
+				for (int i = 0; i < 8; i++) {//第一列
+					x = m_CubeThPoints[i].x;
+					z = m_CubeThPoints[i].z;
+					m_CubeThPoints[i].x = x * c + z * s;
+				}
+				for (int i = 0; i < 8; i++) {//第三列
+					x = m_CubeThPoints[i].x;
+					z = m_CubeThPoints[i].z;
+					m_CubeThPoints[i].z = z * c - x * s;
+				}
+				OnRoatey();
+			}
 		}
-		else if (pMsg->lParam == 2490369) {//L
 
-			for (int i = 0; i < 8; i++) {
-				x = m_CubeThPoints[i].x;
-				y = m_CubeThPoints[i].y;
-				m_CubeThPoints[i].x = -1* (x * c - y * s);
+		//反向旋转
+		else if (pMsg->lParam == 2490369) {//L
+			if (m_RoateType == Roate_Z) {
+				for (int i = 0; i < 8; i++) {
+					x = m_CubeThPoints[i].x;
+					y = m_CubeThPoints[i].y;
+					m_CubeThPoints[i].x = x * reversec - y * reverses;
+				}
+				for (int i = 0; i < 8; i++) {
+					x = m_CubeThPoints[i].x;
+					y = m_CubeThPoints[i].y;
+					m_CubeThPoints[i].y = x * reverses + y * reversec;
+				}
+				OnRoatez();
 			}
-			for (int i = 0; i < 8; i++) {
-				x = m_CubeThPoints[i].x;
-				y = m_CubeThPoints[i].y;
-				m_CubeThPoints[i].y = -1 * (x * s + y * c);
+			//X轴反向旋转
+			else if (m_RoateType == Roate_X) {
+				for (int i = 0; i < 8; i++) {//第二列
+					y = m_CubeThPoints[i].y;
+					z = m_CubeThPoints[i].z;
+					m_CubeThPoints[i].y = y * reversec - z * reverses;
+				}
+				for (int i = 0; i < 8; i++) {//第三列
+					y = m_CubeThPoints[i].y;
+					z = m_CubeThPoints[i].z;
+					m_CubeThPoints[i].z = y * reverses + z * reversec;
+				}
+				OnRoatex();
 			}
-			OnRoatez();
+
+			//Y轴反向旋转
+			else if (m_RoateType == Roate_Y) {
+				for (int i = 0; i < 8; i++) {//第一列
+					x = m_CubeThPoints[i].x;
+					z = m_CubeThPoints[i].z;
+					m_CubeThPoints[i].x = x * reversec + z * reverses;
+				}
+				for (int i = 0; i < 8; i++) {//第三列
+					x = m_CubeThPoints[i].x;
+					z = m_CubeThPoints[i].z;
+					m_CubeThPoints[i].z = z * reversec - x * reverses;
+				}
+				OnRoatey();
+			}
 		}
 	}
 	
@@ -846,6 +927,7 @@ BOOL CCGWORK0933View::PreTranslateMessage(MSG* pMsg)
 void CCGWORK0933View::OnRoatez()
 {
 	ClearScreen();
+	m_RoateType = Roate_Z;
 	// TODO: 在此添加命令处理程序代码
 	/*double L = 2 / sqrt(3);
 	double Alpha = 20;
@@ -877,10 +959,10 @@ void CCGWORK0933View::OnRoatez()
 	m_Proj_Matri[3][2] = 0;
 	m_Proj_Matri[3][3] = 1;
 
+	Perspective();
 	From3dTo2d();
 	DrawCube();*/
 
-	//double L = 2 / sqrt(3);
 	double Alpha = 5;
 	Alpha *= PI / 180;
 	double c = cos(Alpha);
@@ -902,6 +984,87 @@ void CCGWORK0933View::OnRoatez()
 	m_Proj_Matri[2][0] = 0;
 	m_Proj_Matri[2][1] = 0;
 	m_Proj_Matri[2][2] = 1;
+	m_Proj_Matri[2][3] = 0;
+
+	//第四列
+	m_Proj_Matri[3][0] = 0;
+	m_Proj_Matri[3][1] = 0;
+	m_Proj_Matri[3][2] = 0;
+	m_Proj_Matri[3][3] = 1;
+
+	Perspective();
+	From3dTo2d();
+	DrawCube();
+}
+//绕X轴旋转
+void CCGWORK0933View::OnRoatex()
+{
+	// TODO: 在此添加命令处理程序代码
+	ClearScreen();
+	m_RoateType = Roate_X;
+
+	double Alpha = 5;
+	Alpha *= PI / 180;
+	double c = cos(Alpha);
+	double s = sin(Alpha);
+
+	//第一列
+	m_Proj_Matri[0][0] = 1;
+	m_Proj_Matri[0][1] = 0;
+	m_Proj_Matri[0][2] = 0;
+	m_Proj_Matri[0][3] = 0;
+
+	//第二列
+	m_Proj_Matri[1][0] = 0;
+	m_Proj_Matri[1][1] = c;
+	m_Proj_Matri[1][2] = -1 * s;
+	m_Proj_Matri[1][3] = 0;
+
+	//第三列
+	m_Proj_Matri[2][0] = 0;
+	m_Proj_Matri[2][1] = s;
+	m_Proj_Matri[2][2] = c;
+	m_Proj_Matri[2][3] = 0;
+
+	//第四列
+	m_Proj_Matri[3][0] = 0;
+	m_Proj_Matri[3][1] = 0;
+	m_Proj_Matri[3][2] = 0;
+	m_Proj_Matri[3][3] = 1;
+
+	Perspective();
+	From3dTo2d();
+	DrawCube();
+}
+
+//绕Y轴旋转
+void CCGWORK0933View::OnRoatey()
+{
+	// TODO: 在此添加命令处理程序代码
+	ClearScreen();
+	m_RoateType = Roate_Y;
+
+	double Alpha = 5;
+	Alpha *= PI / 180;
+	double c = cos(Alpha);
+	double s = sin(Alpha);
+
+	//第一列
+	m_Proj_Matri[0][0] = c;
+	m_Proj_Matri[0][1] = 0;
+	m_Proj_Matri[0][2] = s;
+	m_Proj_Matri[0][3] = 0;
+
+	//第二列
+	m_Proj_Matri[1][0] = 0;
+	m_Proj_Matri[1][1] = 1;
+	m_Proj_Matri[1][2] = 0;
+	m_Proj_Matri[1][3] = 0;
+
+	//第三列
+	m_Proj_Matri[2][0] = -1 * s;
+	m_Proj_Matri[2][1] = 0;
+	m_Proj_Matri[2][2] = c;
 	m_Proj_Matri[2][3] = 0;
 
 	//第四列
