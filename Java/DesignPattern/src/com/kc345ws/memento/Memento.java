@@ -1,5 +1,6 @@
 package com.kc345ws.memento;
 
+//备忘录类,保存游戏角色某个时刻的状态
 public class Memento {
     private int attack;//攻击力
     private int hp;//防御力

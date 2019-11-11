@@ -30,7 +30,117 @@ public:
 	ThPoint() {}
 };
 
+class Point {//二维平面点Point,double类型
+public:
+	double x, y;//双精度浮点小数
+	Point() { x = 0; y = 0; }
+	Point(double _x, double _y) {
+		x = _x;
+		y = _y;
+	}
 
+	Point(CPoint p) {
+		x = p.x;
+		y = p.x;
+	}
+
+	inline Point operator =(Point p) {
+		x = p.x;
+		y = p.y;
+		return(*this);
+	}
+
+	inline Point operator=(CPoint p) {
+		x = p.x;
+		y = p.y;
+		return(*this);
+	}
+
+	inline Point operator+= (Point p) {
+		x += p.x;
+		y += p.y;
+		return (*this);
+	}
+
+	inline Point operator+= (CPoint p) {
+		x += p.x;
+		y += p.y;
+		return (*this);
+	}
+
+	inline Point operator-= (Point p) {
+		x -= p.x;
+		y -= p.y;
+		return (*this);
+	}
+
+	inline Point operator-= (CPoint p) {
+		x -= p.x;
+		y -= p.y;
+		return (*this);
+	}
+
+	inline Point operator*= (double s) {
+		x *= s;
+		y *= s;
+		return (*this);
+	}
+
+	inline Point operator/= (double s) {
+		x /= s;
+		y /= s;
+		return (*this);
+	}
+
+	inline Point operator+ (Point p) {
+		Point t;
+		t.x = this->x + p.x;
+		t.y = this->y + p.y;
+		return(t);
+	}
+
+	inline Point operator+ (CPoint p) {
+		Point t;
+		t.x = this->x + p.x;
+		t.y = this->y + p.y;
+		return(t);
+	}
+
+	inline Point operator- (Point p) {
+		Point t;
+		t.x = this->x - p.x;
+		t.y = this->y - p.y;
+		return(t);
+	}
+
+	inline Point operator- (CPoint p) {
+		Point t;
+		t.x = this->x - p.x;
+		t.y = this->y - p.y;
+		return(t);
+	}
+
+	inline Point operator*(double s) {
+		Point t;
+		t.x = this->x * s;
+		t.y = this->y * s;
+		return(t);
+	}
+
+	inline Point operator/(double s) {
+		Point t;
+		t.x = this->x / s;
+		t.y = this->y / s;
+		return(t);
+	}
+
+	inline operator CPoint() {
+		return CPoint((int)x, (int)y);
+	}
+};
+
+const int N = 5;//N次Bezier曲线
+const int npoints = 100;//右npoints+1个点构成的这线逼近Bezier
 class CCGWORK0933View : public CView
 {
 protected: // 仅从序列化创建
@@ -84,6 +194,7 @@ public:
 	bool m_LButtonDown;//鼠标左键是否按下
 	bool m_isDraw;//是否在绘制
 	int m_DrawType;//绘制图形类型
+	int m_MenuType;
 	enum DrawTypes//绘制图形最的种类
 	{
 		LINE,
@@ -134,8 +245,26 @@ public:
 	afx_msg void OnRoatez();//Z轴旋转
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	int m_RoateType;//旋转方式
-	afx_msg void OnRoatex();
-	afx_msg void OnRoatey();
+	afx_msg void OnRoatex();//X轴旋转
+	afx_msg void OnRoatey();//Y轴转转
+	afx_msg void OnDrawBezier();//绘制Bezier曲线
+
+
+	/*-----------Bezier曲线----------*/
+	int m_nCount;//记录鼠标左键按下的次数
+	CPoint m_Newpoint;//记录鼠标移动时的位置坐标
+	Point ptControlPts[N + 1];//曲线控制点坐标
+	Point ptPts[npoints + 1];//逼近曲线的折线点坐标
+	int nMethod;//Bezier绘制方法 0直接绘制	1几何绘制	2分裂法
+	void bezier_to_points(Point P[],int n ,Point pts[],int npoints);//绘制Bezier曲线
+	Point Bezier(Point P[], int n, double t);//采用直接绘制法计算Bezier曲线上各点坐标值
+	double Bernstenin(int i, int n, double t);//计算伯恩斯坦函数
+	long Permutation(int n, int i);//排列函数
+	Point decas(Point P[], int n, double t);//采用几何绘制
+	void new_split_Bezier(CDC *pDC, Point P[]);//分裂法计算
+	double maxdistance(Point P[]);//计算控制多边形顶点距底边的最大距离
+	void DrawBezier(CDC *pdc, Point P[], int n, Point pts[], int npoints);
+
 };
 
 

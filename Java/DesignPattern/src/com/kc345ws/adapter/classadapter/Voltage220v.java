@@ -1,8 +1,7 @@
 package com.kc345ws.adapter.classadapter;
 
-//被适配类
+//被适配类Adaptee
 public class Voltage220v {
-
     //输出220v电压
     public int outout220vv(){
         int src = 220;

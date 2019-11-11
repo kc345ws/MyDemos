@@ -9,7 +9,7 @@ public class GameRole {
         this.hp = hp;
     }
 
-    //创建Memento
+    //创建这个时刻的Memento
     public Memento createMemento(){
         return new Memento(attack,hp);
     }

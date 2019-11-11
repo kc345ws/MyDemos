@@ -51,6 +51,7 @@ BEGIN_MESSAGE_MAP(CCGWORK0933View, CView)
 ON_COMMAND(ID_RoateZ, &CCGWORK0933View::OnRoatez)
 ON_COMMAND(ID_RoateX, &CCGWORK0933View::OnRoatex)
 ON_COMMAND(ID_RoateY, &CCGWORK0933View::OnRoatey)
+ON_COMMAND(ID_DRAW_BEZIER, &CCGWORK0933View::OnDrawBezier)
 END_MESSAGE_MAP()
 
 // CCGWORK0933View 构造/析构
@@ -93,8 +94,16 @@ CCGWORK0933View::CCGWORK0933View() noexcept
 	m_CubeThPoints[6] = ThPoint(0 + 200, 100 + 200, 100 + 200);
 	m_CubeThPoints[7] = ThPoint(100 + 200, 100 + 200, 100 + 200);
 	//m_CubeThPoints[4].x = 100;
-	/*-----------------正方体三维坐标------------------*/
 	Perspective();//透视投影矩阵
+	/*-----------------正方体三维坐标------------------*/
+	
+
+	/*----------Bezier曲线------------*/
+	m_nCount = 0;//鼠标左键按下的次数
+	nMethod = 1;//Bezier绘制方法初始为0 直接绘制法 1几何绘制 2分裂法
+
+	/*----------Bezier曲线------------*/
+	m_MenuType = 0;
 }
 
 CCGWORK0933View::~CCGWORK0933View()
@@ -194,6 +203,15 @@ void CCGWORK0933View::OnLButtonDown(UINT nFlags, CPoint point)
 		DrawLButtonDown(nFlags, point);
 	}*/
 	DrawLButtonDown(nFlags, point);
+
+
+	/*------------Bezier曲线绘制-------------*/
+	if (m_MenuType == 3) {
+		ptControlPts[m_nCount] = point;//保存鼠标左键按下的当前位置
+		m_Newpoint = point;//存放画线的起始位置
+		m_nCount = (++m_nCount)%(N + 1);//记录鼠标左键按下的次数，次数>=N+1时归零
+	}
+	/*------------Bezier曲线绘制-------------*/
 	CView::OnLButtonDown(nFlags, point);
 }
 
@@ -201,8 +219,6 @@ void CCGWORK0933View::OnLButtonDown(UINT nFlags, CPoint point)
 void CCGWORK0933View::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-
-
 	/*
 	我们发现在函数中已经添加了一句代码，这行代码是调用对应的父类的鼠标消息处理函数
 	进行一些默认处理。我们所添加的代码都必须添加到该句代码之前，并且此句代码不能删除，
@@ -215,6 +231,21 @@ void CCGWORK0933View::OnLButtonUp(UINT nFlags, CPoint point)
 		DrawLButtonUp(nFlags, point);
 	}*/
 	DrawLButtonUp(nFlags, point);
+
+	/*------------Bezier曲线----------*/
+	if (m_MenuType == 3) {
+		if (m_nCount == 0) {
+			//m_nCount为0，即鼠标左键按下的次数为N+1的整数倍，则绘制曲线
+			CClientDC dc(this);//设备环境
+			CPen pen, *oldpen;
+			pen.CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+			oldpen = dc.SelectObject(&pen);
+			DrawBezier(&dc, ptControlPts, N, ptPts, npoints);
+			dc.SelectObject(oldpen);
+		}
+	}
+
+	/*------------Bezier曲线----------*/
 	CView::OnLButtonUp(nFlags, point);
 }
 
@@ -226,6 +257,20 @@ void CCGWORK0933View::OnMouseMove(UINT nFlags, CPoint point)
 		DrawMouseMove(nFlags, point);
 	}*/
 	DrawMouseMove(nFlags, point);
+
+	/*-----------------Bezier曲线--------------------*/
+	if (m_MenuType == 3) {
+		if ((m_nCount > 0) && (m_nCount <= N)) {
+			CClientDC dc(this);//设备环境
+			dc.SetROP2(R2_NOT);
+			dc.MoveTo((CPoint)ptControlPts[m_nCount - 1]);//擦除前面绘制的曲线
+			dc.LineTo(m_Newpoint);
+			dc.MoveTo((CPoint)ptControlPts[m_nCount - 1]);//从起始位置到当前位置
+			dc.LineTo(point);
+			m_Newpoint = point;//存放当前鼠标位置
+		}
+	}
+	/*-----------------Bezier曲线--------------------*/
 	CView::OnMouseMove(nFlags, point);
 }
 
@@ -511,7 +556,7 @@ void CCGWORK0933View::OnSetPolygonColor()
 }
 #pragma endregion
 
-
+#pragma region 三维图形绘制
 //清屏
 void CCGWORK0933View::OnInvalidate()
 {
@@ -533,7 +578,7 @@ void CCGWORK0933View::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	左键dx = -1;
 	up dy = -1;
 	....
-	
+
 	invilidate无效化窗口从而调用ondraw，使得画面再次重画
 	*/
 
@@ -567,7 +612,7 @@ void CCGWORK0933View::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	From3dTo2d();
 	DrawCube();
 
-	
+
 }
 
 //绘制立方体
@@ -592,13 +637,13 @@ void CCGWORK0933View::Perspective()
 	//第一列
 	m_Proj_Matri[0][0] = 1;
 	m_Proj_Matri[0][1] = 0;
-	m_Proj_Matri[0][2] = x0/d;
+	m_Proj_Matri[0][2] = x0 / d;
 	m_Proj_Matri[0][3] = 0;
 
 	//第二列
 	m_Proj_Matri[1][0] = 0;
 	m_Proj_Matri[1][1] = 1;
-	m_Proj_Matri[1][2] = y0/d;
+	m_Proj_Matri[1][2] = y0 / d;
 	m_Proj_Matri[1][3] = 0;
 
 	//第三列
@@ -610,7 +655,7 @@ void CCGWORK0933View::Perspective()
 	//第四列
 	m_Proj_Matri[3][0] = 0;
 	m_Proj_Matri[3][1] = 0;
-	m_Proj_Matri[3][2] = 1.0/d;
+	m_Proj_Matri[3][2] = 1.0 / d;
 	m_Proj_Matri[3][3] = 1;
 
 
@@ -621,42 +666,42 @@ void CCGWORK0933View::Perspective()
 void CCGWORK0933View::From3dTo2d()
 {
 	// TODO: 在此处添加实现代码.
-	
+
 	//第一个顶点
-	m_Cube2DPoints[0].x = 
+	m_Cube2DPoints[0].x =
 		((m_CubeThPoints[0].x * m_Proj_Matri[0][0] +
-		m_CubeThPoints[0].y * m_Proj_Matri[0][1] + 
-		m_CubeThPoints[0].z * m_Proj_Matri[0][2] + 
-		m_Proj_Matri[0][3])+0.5)/1;
+			m_CubeThPoints[0].y * m_Proj_Matri[0][1] +
+			m_CubeThPoints[0].z * m_Proj_Matri[0][2] +
+			m_Proj_Matri[0][3]) + 0.5) / 1;
 	m_Cube2DPoints[0].y =
 		((m_CubeThPoints[0].x * m_Proj_Matri[1][0] +
-		m_CubeThPoints[0].y * m_Proj_Matri[1][1] +
-		m_CubeThPoints[0].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3])+0.5)/1;
+			m_CubeThPoints[0].y * m_Proj_Matri[1][1] +
+			m_CubeThPoints[0].z * m_Proj_Matri[1][2] +
+			m_Proj_Matri[1][3]) + 0.5) / 1;
 
 	//第二个顶点
-	m_Cube2DPoints[1].x = 
+	m_Cube2DPoints[1].x =
 		((m_CubeThPoints[1].x * m_Proj_Matri[0][0] +
-		m_CubeThPoints[1].y * m_Proj_Matri[0][1] +
-		m_CubeThPoints[1].z * m_Proj_Matri[0][2] +
-		m_Proj_Matri[0][3])+0.5)/1;
+			m_CubeThPoints[1].y * m_Proj_Matri[0][1] +
+			m_CubeThPoints[1].z * m_Proj_Matri[0][2] +
+			m_Proj_Matri[0][3]) + 0.5) / 1;
 	m_Cube2DPoints[1].y =
 		((m_CubeThPoints[1].x * m_Proj_Matri[1][0] +
-		m_CubeThPoints[1].y * m_Proj_Matri[1][1] +
-		m_CubeThPoints[1].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3])+0.5)/1;
+			m_CubeThPoints[1].y * m_Proj_Matri[1][1] +
+			m_CubeThPoints[1].z * m_Proj_Matri[1][2] +
+			m_Proj_Matri[1][3]) + 0.5) / 1;
 
 	//第三个顶点
 	m_Cube2DPoints[2].x =
 		((m_CubeThPoints[2].x * m_Proj_Matri[0][0] +
-		m_CubeThPoints[2].y * m_Proj_Matri[0][1] +
-		m_CubeThPoints[2].z * m_Proj_Matri[0][2] +
-		m_Proj_Matri[0][3])+0.5)/1;
+			m_CubeThPoints[2].y * m_Proj_Matri[0][1] +
+			m_CubeThPoints[2].z * m_Proj_Matri[0][2] +
+			m_Proj_Matri[0][3]) + 0.5) / 1;
 	m_Cube2DPoints[2].y =
 		((m_CubeThPoints[2].x * m_Proj_Matri[1][0] +
-		m_CubeThPoints[2].y * m_Proj_Matri[1][1] +
-		m_CubeThPoints[2].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3])+0.5)/1;
+			m_CubeThPoints[2].y * m_Proj_Matri[1][1] +
+			m_CubeThPoints[2].z * m_Proj_Matri[1][2] +
+			m_Proj_Matri[1][3]) + 0.5) / 1;
 
 	//第四个顶点
 	m_Cube2DPoints[3].x =
@@ -666,69 +711,69 @@ void CCGWORK0933View::From3dTo2d()
 			m_Proj_Matri[0][3] + 0.5)) / 1;
 	m_Cube2DPoints[3].y =
 		((m_CubeThPoints[3].x * m_Proj_Matri[1][0] +
-		m_CubeThPoints[3].y * m_Proj_Matri[1][1] +
-		m_CubeThPoints[3].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3])+0.5)/1;
+			m_CubeThPoints[3].y * m_Proj_Matri[1][1] +
+			m_CubeThPoints[3].z * m_Proj_Matri[1][2] +
+			m_Proj_Matri[1][3]) + 0.5) / 1;
 
 	//第五个顶点
 	m_Cube2DPoints[4].x =
 		((m_CubeThPoints[4].x * m_Proj_Matri[0][0] +
-		m_CubeThPoints[4].y * m_Proj_Matri[0][1] +
-		m_CubeThPoints[4].z * m_Proj_Matri[0][2] +
-		m_Proj_Matri[0][3])+0.5)/1;
+			m_CubeThPoints[4].y * m_Proj_Matri[0][1] +
+			m_CubeThPoints[4].z * m_Proj_Matri[0][2] +
+			m_Proj_Matri[0][3]) + 0.5) / 1;
 	m_Cube2DPoints[4].y =
 		((m_CubeThPoints[4].x * m_Proj_Matri[1][0] +
-		m_CubeThPoints[4].y * m_Proj_Matri[1][1] +
-		m_CubeThPoints[4].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3])+0.5)/1;
+			m_CubeThPoints[4].y * m_Proj_Matri[1][1] +
+			m_CubeThPoints[4].z * m_Proj_Matri[1][2] +
+			m_Proj_Matri[1][3]) + 0.5) / 1;
 
 	//第六个顶点
 	m_Cube2DPoints[5].x =
 		((m_CubeThPoints[5].x * m_Proj_Matri[0][0] +
-		m_CubeThPoints[5].y * m_Proj_Matri[0][1] +
-		m_CubeThPoints[5].z * m_Proj_Matri[0][2] +
-		m_Proj_Matri[0][3])+0.5)/1;
+			m_CubeThPoints[5].y * m_Proj_Matri[0][1] +
+			m_CubeThPoints[5].z * m_Proj_Matri[0][2] +
+			m_Proj_Matri[0][3]) + 0.5) / 1;
 	m_Cube2DPoints[5].y =
 		((m_CubeThPoints[5].x * m_Proj_Matri[1][0] +
-		m_CubeThPoints[5].y * m_Proj_Matri[1][1] +
-		m_CubeThPoints[5].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3])+0.5)/1;
+			m_CubeThPoints[5].y * m_Proj_Matri[1][1] +
+			m_CubeThPoints[5].z * m_Proj_Matri[1][2] +
+			m_Proj_Matri[1][3]) + 0.5) / 1;
 
 	//第七个顶点
 	m_Cube2DPoints[6].x =
 		((m_CubeThPoints[6].x * m_Proj_Matri[0][0] +
-		m_CubeThPoints[6].y * m_Proj_Matri[0][1] +
-		m_CubeThPoints[6].z * m_Proj_Matri[0][2] +
-		m_Proj_Matri[0][3])+0.5)/1;
+			m_CubeThPoints[6].y * m_Proj_Matri[0][1] +
+			m_CubeThPoints[6].z * m_Proj_Matri[0][2] +
+			m_Proj_Matri[0][3]) + 0.5) / 1;
 	m_Cube2DPoints[6].y =
 		((m_CubeThPoints[6].x * m_Proj_Matri[1][0] +
-		m_CubeThPoints[6].y * m_Proj_Matri[1][1] +
-		m_CubeThPoints[6].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3])+0.5)/1;
+			m_CubeThPoints[6].y * m_Proj_Matri[1][1] +
+			m_CubeThPoints[6].z * m_Proj_Matri[1][2] +
+			m_Proj_Matri[1][3]) + 0.5) / 1;
 
 	//第八个顶点
 	m_Cube2DPoints[7].x =
 		((m_CubeThPoints[7].x * m_Proj_Matri[0][0] +
-		m_CubeThPoints[7].y * m_Proj_Matri[0][1] +
-		m_CubeThPoints[7].z * m_Proj_Matri[0][2] +
-		m_Proj_Matri[0][3])+0.5)/1;
+			m_CubeThPoints[7].y * m_Proj_Matri[0][1] +
+			m_CubeThPoints[7].z * m_Proj_Matri[0][2] +
+			m_Proj_Matri[0][3]) + 0.5) / 1;
 	m_Cube2DPoints[7].y =
 		((m_CubeThPoints[7].x * m_Proj_Matri[1][0] +
-		m_CubeThPoints[7].y * m_Proj_Matri[1][1] +
-		m_CubeThPoints[7].z * m_Proj_Matri[1][2] +
-		m_Proj_Matri[1][3])+0.5)/1;
+			m_CubeThPoints[7].y * m_Proj_Matri[1][1] +
+			m_CubeThPoints[7].z * m_Proj_Matri[1][2] +
+			m_Proj_Matri[1][3]) + 0.5) / 1;
 }
 
 
 //画矩形
-void CCGWORK0933View::DrawRect(CPoint p1, CPoint p2, CPoint p3, CPoint p4 , bool isfill) {
+void CCGWORK0933View::DrawRect(CPoint p1, CPoint p2, CPoint p3, CPoint p4, bool isfill) {
 	CClientDC dc(this);
 	dc.MoveTo(p1);
 	dc.LineTo(p2);
 	dc.LineTo(p3);
 	dc.LineTo(p4);
 	dc.LineTo(p1);
-	
+
 	if (isfill) {
 		CRgn crgn;
 		//CPoint *cpoint = new CPoint[4];
@@ -778,12 +823,12 @@ void CCGWORK0933View::Fill(CPoint cpoints[]) {
 
 //画立方体
 void CCGWORK0933View::DrawCube() {
-	DrawRect(m_Cube2DPoints[1-1], m_Cube2DPoints[2-1], m_Cube2DPoints[6-1], m_Cube2DPoints[5-1]);
-	DrawRect(m_Cube2DPoints[2-1], m_Cube2DPoints[4-1], m_Cube2DPoints[8-1], m_Cube2DPoints[6-1]);
-	DrawRect(m_Cube2DPoints[4-1], m_Cube2DPoints[8-1], m_Cube2DPoints[7-1], m_Cube2DPoints[3-1]);
-	DrawRect(m_Cube2DPoints[1-1], m_Cube2DPoints[3-1], m_Cube2DPoints[7-1], m_Cube2DPoints[5-1]);
-	DrawRect(m_Cube2DPoints[5-1], m_Cube2DPoints[6-1], m_Cube2DPoints[8-1], m_Cube2DPoints[7-1]);
-	DrawRect(m_Cube2DPoints[1-1], m_Cube2DPoints[2-1], m_Cube2DPoints[4-1], m_Cube2DPoints[3-1]);
+	DrawRect(m_Cube2DPoints[1 - 1], m_Cube2DPoints[2 - 1], m_Cube2DPoints[6 - 1], m_Cube2DPoints[5 - 1]);
+	DrawRect(m_Cube2DPoints[2 - 1], m_Cube2DPoints[4 - 1], m_Cube2DPoints[8 - 1], m_Cube2DPoints[6 - 1]);
+	DrawRect(m_Cube2DPoints[4 - 1], m_Cube2DPoints[8 - 1], m_Cube2DPoints[7 - 1], m_Cube2DPoints[3 - 1]);
+	DrawRect(m_Cube2DPoints[1 - 1], m_Cube2DPoints[3 - 1], m_Cube2DPoints[7 - 1], m_Cube2DPoints[5 - 1]);
+	DrawRect(m_Cube2DPoints[5 - 1], m_Cube2DPoints[6 - 1], m_Cube2DPoints[8 - 1], m_Cube2DPoints[7 - 1]);
+	DrawRect(m_Cube2DPoints[1 - 1], m_Cube2DPoints[2 - 1], m_Cube2DPoints[4 - 1], m_Cube2DPoints[3 - 1]);
 
 	/*重新绘制*/
 	DrawRect(m_Cube2DPoints[1 - 1], m_Cube2DPoints[2 - 1], m_Cube2DPoints[6 - 1], m_Cube2DPoints[5 - 1], false);
@@ -820,8 +865,8 @@ BOOL CCGWORK0933View::PreTranslateMessage(MSG* pMsg)
 		Alpha *= PI / 180;
 		double c = cos(Alpha);
 		double s = sin(Alpha);
-		double reversec = cos(-1*Alpha);//反向旋转
-		double reverses = sin(-1*Alpha);
+		double reversec = cos(-1 * Alpha);//反向旋转
+		double reverses = sin(-1 * Alpha);
 		double x;
 		double y;
 		double z;
@@ -919,7 +964,7 @@ BOOL CCGWORK0933View::PreTranslateMessage(MSG* pMsg)
 			}
 		}
 	}
-	
+
 	return CView::PreTranslateMessage(pMsg);
 }
 
@@ -1077,3 +1122,149 @@ void CCGWORK0933View::OnRoatey()
 	From3dTo2d();
 	DrawCube();
 }
+#pragma endregion
+
+#pragma region 曲线绘制
+void CCGWORK0933View::OnDrawBezier()
+{
+	// TODO: 在此添加命令处理程序代码
+	m_isDraw = false;
+	m_isDrawPoly = false;
+	m_MenuType = 3;
+	//CClientDC dc(this);
+	//DrawBezier(&dc, ptControlPts, N, ptPts, npoints);
+}
+
+//输入参数P为控制点坐标，控制点个数为n+1
+void CCGWORK0933View::bezier_to_points(Point P[], int n, Point pts[], int npoints)
+{
+	double t = 0, delt;
+	int i;
+	delt = 1.0 / (double)npoints;//将参数t的变化区间进行npoints等分
+	switch (nMethod) {
+	case 0:
+		for (int i = 0; i < npoints; i++, t += delt) {
+			pts[i] = Bezier(P, n, t);
+		}
+		break;
+
+	case 1:
+		for (i = 0; i <= npoints; i++, t += delt) {
+			pts[i] = decas(P, n, t);
+		}
+		break;
+	}
+}
+
+//计算Bezier各点坐标
+Point CCGWORK0933View::Bezier(Point P[], int n, double t)
+{
+	Point ret = Point(0, 0);
+	double temp;
+	for (int i = 0; i <= n; i++) {
+		temp = Bernstenin(i, n, t);
+		ret += P[i] * temp;
+	}
+	return ret;
+}
+
+//计算伯恩斯坦基函数
+double CCGWORK0933View::Bernstenin(int i, int n, double t)
+{
+	return Permutation(n, i) / Permutation(i, i)*pow((1 - t), n - i);
+}
+
+long CCGWORK0933View::Permutation(int n, int i)
+{
+	long ret = 1;
+	if (n >= i) {
+		for (int j = n; j > n - i; j--) {
+			ret *= j;
+		}
+	}
+	return ret;
+}
+
+Point CCGWORK0933View::decas(Point P[], int n, double t)
+{
+	int m, i;
+	Point *R, *Q, p0;
+	R = new Point[n + 1];
+	Q = new Point[n + 1];
+	for (i = 0; i <= n; i++) {
+		R[i] = P[i];
+	}
+	for (m = n; m > 0; m--) {
+		for (i = 0; i <= m - 1; i++) {
+			Q[i] = R[i] + (R[i + 1] - R[i])*t;
+		}
+		for (i = 0; i <= m - 1; i++) {
+			R[i] = Q[i];
+		}
+	}
+	p0 = R[0];
+	delete R;
+	delete Q;
+	return (p0);
+}
+
+//分裂华计算Bezier坐标
+void CCGWORK0933View::new_split_Bezier(CDC * pDC, Point P[])
+{
+	Point R[N + 1], Q[N + 1];
+	int i, j;
+	const double epsilon = 1;
+	if (maxdistance(P) < epsilon) {
+		pDC->MoveTo((CPoint)P[0]);
+		pDC->LineTo((CPoint)P[N]);
+	}
+	else {
+		for (i = 0; i <= N; i++) {
+			R[i] = P[i];
+		}
+		for (i = 0; i <= N; i++) {
+			Q[i] = R[0];
+			new_split_Bezier(pDC, Q);
+			new_split_Bezier(pDC, R);
+		}
+	}
+}
+
+double CCGWORK0933View::maxdistance(Point P[])
+{
+	double s, h, hmax = 0;
+	for (int i = 0; i < N - 1; i++) {
+		s = ((P[0].x - P[i + 1].x)*(P[0].y + P[i + 1].y))
+			+ (P[i + 1].x - P[N].x)*(P[i + 1].y + P[N].y)
+			+ (P[N].x - P[0].x)*(P[N].y + P[0].y);
+		double distance = sqrt((P[0].x - P[N].x)*(P[0].x - P[N].x)
+			+ (P[0].y - P[N].y)*(P[0].y - P[N].y));
+
+		h = fabs(s / distance);
+		if (hmax < h) {
+			hmax = h;
+		}
+	}
+	return hmax;
+}
+
+void CCGWORK0933View::DrawBezier(CDC * pdc, Point P[], int n, Point pts[], int npoints)
+{
+	int i;
+	switch (nMethod) {
+	case 0:
+		break;
+	case 1:
+		bezier_to_points(P, N, pts, npoints);//
+		pdc->MoveTo((CPoint)pts[0]);
+		for (i = 1; i <= npoints; i++) {
+			pdc->LineTo((CPoint)pts[i]);
+		}
+		break;
+	case 2:
+		new_split_Bezier(pdc, P);
+		break;
+	}
+}
+#pragma endregion
+

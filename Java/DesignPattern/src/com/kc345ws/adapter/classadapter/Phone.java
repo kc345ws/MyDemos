@@ -1,5 +1,6 @@
 package com.kc345ws.adapter.classadapter;
 
+//电压被转换成目标类5V后手机可以充电
 public class Phone {
     //充电
     public void charging(IVoltage5v iVoltage5v){
