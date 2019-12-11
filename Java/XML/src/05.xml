@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE students[
+        <!ELEMENT students (student*)>
+        <!ELEMENT student (name,courses)>
+        <!ELEMENT courses (course*,average)>
+        <!ELEMENT course (course_name,mark)>
+        <!ELEMENT name (#PCDATA)>
+        <!ELEMENT average (#PCDATA)>
+        <!ELEMENT course_name (#PCDATA)>
+        <!ELEMENT mark (#PCDATA)>
+        ]>
+
+<students>
+    <student>
+        <name>张三</name>
+        <courses>
+            <course>
+                <course_name>
+                    编译方法
+                </course_name>
+                <mark>
+                    79
+                </mark>
+            </course>
+
+            <course>
+                <course_name>
+                    C程序设计
+                </course_name>
+                <mark>
+                    85
+                </mark>
+            </course>
+
+            <course>
+                <course_name>
+                    数据结构
+                </course_name>
+                <mark>
+                    93
+                </mark>
+            </course>
+
+            <average>85.67</average>
+        </courses>
+    </student>
+
+    <student>
+        <name>李四</name>
+        <courses>
+            <course>
+                <course_name>
+                    计算复杂性
+                </course_name>
+                <mark>
+                    72
+                </mark>
+            </course>
+
+            <course>
+                <course_name>
+                    偏微分方程
+                </course_name>
+                <mark>
+                    86
+                </mark>
+            </course>
+
+            <course>
+                <course_name>
+                    计算方法
+                </course_name>
+                <mark>
+                    95
+                </mark>
+            </course>
+
+            <average>85.67</average>
+
+        </courses>
+    </student>
+
+    <student>
+        <name>王五</name>
+        <courses>
+            <course>
+                <course_name>
+                    分子轨道理论
+                </course_name>
+                <mark>
+                    79
+                </mark>
+            </course>
+
+            <course>
+                <course_name>
+                    有机化学
+                </course_name>
+                <mark>
+                    80
+                </mark>
+            </course>
+
+            <course>
+                <course_name>
+                    分子生物学
+                </course_name>
+                <mark>
+                    88
+                </mark>
+            </course>
+
+            <course>
+                <course_name>
+                    无机化学
+                </course_name>
+                <mark>
+                    98
+                </mark>
+            </course>
+
+            <average>85.67</average>
+        </courses>
+    </student>
+</students>

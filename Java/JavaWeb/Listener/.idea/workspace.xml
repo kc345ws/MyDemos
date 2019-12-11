@@ -7,12 +7,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7916cf7b-a1ff-4320-b3b8-ca53bd176aa1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kc345ws/test/A.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kc345ws/test/B.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/kc345ws/test/PrintListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/META-INF/context.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AJAX_JQERY/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../AJAX_JQERY/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/dao/GoodsDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/dao/GoodsSalesDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/dao/SalesManDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/db/DbClose.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/db/DbOpen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/entity/Goods.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/entity/GoodsSales.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/entity/SalesMan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/page/GoodsPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/page/GoodsSalesPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/page/MainPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/page/SalesManPage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/tools/Arith.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/tools/QueryPrint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/src/com/chc/java/tools/ScannerChoice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Supermarket Management/web/META-INF/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Oracle/.idea/libraries/ojdbc6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Oracle/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Oracle/lib/ojdbc6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Oracle/src/com/kc345ws/Demo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../XML/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../XML/src/05.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../XML/src/06.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../XML/src/06.xsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../XML/src/07/07.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../XML/src/07/07.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../XML/src/07/07.xsl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../XML/src/07/loadxmldoc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../XML/src/miffy.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../C++/MFC/CGWORK0933/CGWORK0933/CGWORK0933.APS" beforeDir="false" afterPath="$PROJECT_DIR$/../../../C++/MFC/CGWORK0933/CGWORK0933/CGWORK0933.APS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../C++/MFC/CGWORK0933/CGWORK0933/CGWORK0933.rc" beforeDir="false" afterPath="$PROJECT_DIR$/../../../C++/MFC/CGWORK0933/CGWORK0933/CGWORK0933.rc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../C++/MFC/CGWORK0933/CGWORK0933/res/sid.bmp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../C++/MFC/CGWORK0933/CGWORK0933/res/sid.bmp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../DesignPattern/src/com/kc345ws/decorator/Drink.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../DesignPattern/src/com/kc345ws/decorator/Drink.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,7 +61,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/META-INF/context.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
@@ -50,11 +79,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/kc345ws/test/B.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+            <state relative-caret-position="240">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#107#108#0" expanded="true" />
                 <element signature="e#156#157#0" expanded="true" />
@@ -94,7 +123,7 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="990" />
-    <option name="width" value="939" />
+    <option name="width" value="940" />
     <option name="height" value="1040" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -105,6 +134,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -154,13 +184,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1571579628578" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Facets" />
@@ -250,16 +280,18 @@
       <updated>1571570402340</updated>
       <workItem from="1571570406203" duration="2928000" />
       <workItem from="1571663807875" duration="523000" />
+      <workItem from="1575977434374" duration="600000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3451000" />
+    <option name="totallyTimeSpent" value="4051000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2533512" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25670242" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -304,6 +336,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/web/META-INF/context.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="3" column="82" selection-start-line="3" selection-start-column="82" selection-end-line="3" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/kc345ws/test/PrintListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -313,19 +352,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/kc345ws/test/B.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
+        <state relative-caret-position="240">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
           <folding>
             <element signature="e#107#108#0" expanded="true" />
             <element signature="e#156#157#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/META-INF/context.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="3" column="82" selection-start-line="3" selection-start-column="82" selection-end-line="3" selection-end-column="82" />
         </state>
       </provider>
     </entry>

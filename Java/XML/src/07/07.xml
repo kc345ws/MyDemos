@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="07.xsl"?>
+<students>
+    <student id="05001">
+        <name>张三</name>
+        <dept>计算机</dept>
+        <course id="001">
+            <title>C程序设计</title>
+            <score>85</score>
+            <date>2000/12/04</date>
+        </course>
+        <course id="002">
+            <title>编译方法</title>
+            <score>79</score>
+            <date>2000/12/06</date>
+        </course>
+        <course id="003">
+            <title>数据结构</title>
+            <score>93</score>
+            <date>2000/12/10</date>
+        </course>
+    </student>
+    <student id="05002">
+        <name>李四</name>
+        <dept>数学</dept>
+        <course id="004">
+            <title>计算方法</title>
+            <score>95</score>
+            <date>2000/12/04</date>
+        </course>
+        <course id="005">
+            <title>偏微分方程</title>
+            <score>86</score>
+            <date>2000/12/07</date>
+        </course>
+        <course id="006">
+            <title>计算复杂性</title>
+            <score>72</score>
+            <date>2000/12/03</date>
+        </course>
+    </student>
+    <student id="05003">
+        <name>王五</name>
+        <dept>化学</dept>
+        <course id="007">
+            <title>有机化学</title>
+            <score>80</score>
+            <date>2000/12/09</date>
+        </course>
+        <course id="008">
+            <title>无机化学</title>
+            <score>98</score>
+            <date>2000/12/15</date>
+        </course>
+        <course id="009">
+            <title>分子轨道理论</title>
+            <score>79</score>
+            <date>2000/12/23</date>
+        </course>
+        <course id="010">
+            <title>分子生物学</title>
+            <score>88</score>
+            <date>2000/11/27</date>
+        </course>
+    </student>
+</students>

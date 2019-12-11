@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生成绩单</title>
+    <script type="text/javascript" src="loadxmldoc.js"></script>
+    <script>
+        var xmldom;
+        var xsldom;
+        var nodes;
+
+
+
+        function init(){
+            xmldom=loadXMLDoc("07.xml");
+            xsldom=loadXMLDoc("07.xsl");
+            nodes=xmldom.selectNodes("students/student");
+            showinfo();
+        }
+
+        function showinfo(){
+            if(nodes!=null){
+                var index = document.getElementById("sid").selectedIndex;
+                if(index-1 >=0) {
+                    var node = nodes[index-1];
+                    //var coursenode=node.selectNodes("course");
+                    //var coursenode = node.getElementsByTagName("course");
+                    document.getElementById("content").innerHTML=node.transformNode(xsldom);
+                }
+            }
+        }
+
+        var depts=["计算机","数学","化学"];
+        function change(){
+            var index = document.getElementById("sid").selectedIndex;
+            if(index-1 >=0) {
+                var dept = depts[index-1];
+                document.getElementById("dept").innerHTML="专业:"+dept;
+                showinfo();
+            }
+        }
+
+    </script>
+</head>
+<body onload="init()">
+    <h3>学生成绩单</h3>
+    <div>
+        <span>姓名:</span>
+        <select id="sid" onchange="change()">
+            <option value="-1">-请选择-</option>
+            <option value="0">张三</option>
+            <option value="1">李四</option>
+            <option value="2">王五</option>
+        </select>
+        <span id="dept">专业:</span>
+    </div>
+
+    <div id="content"></div>
+</body>
+</html>

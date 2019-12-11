@@ -1,5 +1,7 @@
 package com.kc345ws.decorator;
 
+import java.lang.annotation.Target;
+
 //Component主体
 public abstract class Drink {
     public String des;//描述
@@ -24,24 +26,5 @@ public abstract class Drink {
     //子类实现
     public abstract float cost();
 }
-public class Adapter extends Adaptee implements Target
-{
-    public void request()
-    {
-        specificRequest();
-    }
-}
 
-public class Adapter extends Target
-{
-    private Adaptee adaptee;
-    public Adapter(Adaptee adaptee)
-    {
-        this.adaptee=adaptee;
-    }
-    public void request()
-    {
-        adaptee.specificRequest();
-    }
-}
 
