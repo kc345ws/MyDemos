@@ -1,3 +1,4 @@
+//关于时间的一些函数
 (function(){
 	
 	var d=document,

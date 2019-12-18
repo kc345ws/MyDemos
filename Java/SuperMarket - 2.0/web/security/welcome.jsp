@@ -34,15 +34,15 @@
 
 	<div class="publicHeaderR">
 		<p>
-			<span>下午好！</span><span style="color: #fff21b">${sessionScope.name}
-			</span> , 欢迎你！
+			<span>你好！</span><span style="color: #fff21b">${sessionScope.name}
+			</span> , 欢迎使用！
 		</p>
 		<a href="loginOut.do">退出</a>
 	</div>
 	</header>
 	<!--时间-->
-	<section class="publicTime"> <span id="time">2015年1月1日
-		11:11 星期一</span> <a href="#">温馨提示：为了能正常浏览，请使用高版本浏览器！（IE10+）</a> </section>
+	<section class="publicTime"> <span id="time">2019年1月1日
+		11:11 星期一</span> <a href="#">温馨提示：为了能正常浏览，请使用谷歌或Edge浏览器</a> </section>
 	<!--主体内容-->
 	<section class="publicMian">
 	<div class="left">
@@ -80,7 +80,7 @@
 						管理员,可以进行所有操作
 					</c:when>
 					<c:when test="${sessionScope.utype==2}">
-						经理，进行进行除了用户管理外的其他所有操作
+						经理，可以进行除了用户管理外的其他所有操作
 					</c:when>
 					<c:when test="${sessionScope.utype==3}">
 						普通用户，只能进行常规操作

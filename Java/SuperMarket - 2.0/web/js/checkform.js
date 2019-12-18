@@ -1,7 +1,6 @@
 /**
- * Created by cxp on 2016/11/20.
+ * Created by chc on 2019/12/10.
  */
-
 ///验证表单里的所有输入框文本是否为空，有空值时表单不能提交
 
 function checkinput(){

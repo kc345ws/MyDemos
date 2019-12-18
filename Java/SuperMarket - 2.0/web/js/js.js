@@ -1,5 +1,5 @@
 /**
- * Created by yaling.he on 2015/11/17.
+ * Created by chc on 2019/12/10.
  */
 
 //供应商管理页面上点击删除按钮弹出删除框(providerList.html)
