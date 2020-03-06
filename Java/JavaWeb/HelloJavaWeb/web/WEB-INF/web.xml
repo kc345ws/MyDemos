@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+           version="2.5">
+
+    <!--向tomcat报告，这个工程有这个servlet,名字是HelloServlet,路径是om.kc345ws.servlet.HelloServlet-->
+    <!--<servlet>-->
+        <!--<servlet-name>HelloServlet</servlet-name>-->
+        <!--<servlet-class>com.kc345ws.servlet.HelloServlet</servlet-class>-->
+    <!--</servlet>-->
+    
+    <servlet>
+        <servlet-name>HelloServlet02</servlet-name>
+        <servlet-class>com.kc345ws.servlet.HelloServlet02</servlet-class>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>HelloServlet03</servlet-name>
+        <servlet-class>com.kc345ws.servlet.HelloServlet03</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet>
+        <servlet-name>ServletConfig123</servlet-name>
+        <servlet-class>com.kc345ws.servlet.ServletConfig</servlet-class>
+        <init-param>
+            <param-name>adress</param-name>
+            <param-value>shenzhen</param-value>
+
+        </init-param>
+        <init-param>
+            <param-name>name</param-name>
+            <param-value>zhangsan</param-value>
+        </init-param>
+    </servlet>
+
+    <!--注册servlet的映射，找到上面的具体servlet
+    url-pattern地址栏上的path-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>HelloServlet</servlet-name>-->
+        <!--&lt;!&ndash;要以/开头&ndash;&gt;-->
+        <!--<url-pattern>/a</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <servlet-mapping>
+        <servlet-name>HelloServlet02</servlet-name>
+        <url-pattern>/bbc</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>HelloServlet03</servlet-name>
+        <url-pattern>/HelloServlet03</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ServletConfig123</servlet-name>
+        <url-pattern>/ServletConfig</url-pattern>
+    </servlet-mapping>
+</web-app>

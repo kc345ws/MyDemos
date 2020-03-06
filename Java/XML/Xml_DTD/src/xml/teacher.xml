@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+xmlns:xsi必须这样写
+xmlns:固定的
+xsi:schemaLocation:前半段位目标空间 后面是约束文档路径
+-->
+<teachers
+        xmlns="http://www.w3school.com.cn"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.w3school.com.cn teacher.xsd"
+>
+    <teacher>
+        <name>张三</name>
+        <age>25</age>
+    </teacher>
+</teachers>

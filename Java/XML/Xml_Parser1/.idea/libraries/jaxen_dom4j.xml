@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jaxen-dom4j">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jaxen-dom4j.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
