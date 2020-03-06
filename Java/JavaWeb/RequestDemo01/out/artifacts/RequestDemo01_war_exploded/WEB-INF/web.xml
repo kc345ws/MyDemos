@@ -6,7 +6,7 @@
     
     <servlet>
         <servlet-name>Demo01</servlet-name>
-        <servlet-class>com.kc345ws.servlet.Demo01</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.Demo01</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Demo01</servlet-name>
@@ -15,7 +15,7 @@
     
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>com.kc345ws.servlet.LoginServlet</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -24,7 +24,7 @@
 
     <servlet>
         <servlet-name>Response1</servlet-name>
-        <servlet-class>com.kc345ws.servlet.Response1</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.Response1</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Response1</servlet-name>
@@ -33,7 +33,7 @@
 
     <servlet>
         <servlet-name>DownLoadDemo</servlet-name>
-        <servlet-class>com.kc345ws.servlet.DownLoadDemo</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.DownLoadDemo</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DownLoadDemo</servlet-name>
@@ -42,7 +42,7 @@
     
     <servlet>
         <servlet-name>RequestRedirectionDemo</servlet-name>
-        <servlet-class>com.kc345ws.servlet.RequestRedirectionDemo</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.RequestRedirectionDemo</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RequestRedirectionDemo</servlet-name>

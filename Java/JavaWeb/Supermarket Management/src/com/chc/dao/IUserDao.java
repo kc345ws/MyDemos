@@ -9,7 +9,7 @@ public interface IUserDao {
 }
 
 /*
-* package com.kc345ws;
+* package com.com.kc345ws;
 
 
 import java.sql.*;

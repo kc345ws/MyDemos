@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>ShowStudentServlet</servlet-name>
-        <servlet-class>com.kc345ws.servlet.ShowStudentServlet</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.ShowStudentServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ShowStudentServlet</servlet-name>
@@ -16,7 +16,7 @@
 
     <servlet>
         <servlet-name>AddStudentServlet</servlet-name>
-        <servlet-class>com.kc345ws.servlet.AddStudentServlet</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.AddStudentServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddStudentServlet</servlet-name>
@@ -25,7 +25,7 @@
 
     <servlet>
         <servlet-name>DeleteStudentServlet</servlet-name>
-        <servlet-class>com.kc345ws.servlet.DeleteStudentServlet</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.DeleteStudentServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeleteStudentServlet</servlet-name>
@@ -34,7 +34,7 @@
 
     <servlet>
         <servlet-name>EditStudentServlet</servlet-name>
-        <servlet-class>com.kc345ws.servlet.EditStudentServlet</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.EditStudentServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EditStudentServlet</servlet-name>
@@ -43,7 +43,7 @@
 
     <servlet>
         <servlet-name>UpdateStudentServlet</servlet-name>
-        <servlet-class>com.kc345ws.servlet.UpdateStudentServlet</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.UpdateStudentServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdateStudentServlet</servlet-name>
@@ -52,7 +52,7 @@
 
     <servlet>
         <servlet-name>SearchStudentServlet</servlet-name>
-        <servlet-class>com.kc345ws.servlet.SearchStudentServlet</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.SearchStudentServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SearchStudentServlet</servlet-name>
@@ -61,7 +61,7 @@
 
    <servlet>
        <servlet-name>ShowPageStudentServlet</servlet-name>
-       <servlet-class>com.kc345ws.servlet.ShowPageStudentServlet</servlet-class>
+       <servlet-class>com.com.kc345ws.servlet.ShowPageStudentServlet</servlet-class>
    </servlet>
     <servlet-mapping>
         <servlet-name>ShowPageStudentServlet</servlet-name>

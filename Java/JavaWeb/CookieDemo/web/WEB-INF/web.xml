@@ -6,7 +6,7 @@
     
     <servlet>
         <servlet-name>Demo01</servlet-name>
-        <servlet-class>com.kc345ws.cookie.Demo01</servlet-class>
+        <servlet-class>com.com.kc345ws.cookie.Demo01</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Demo01</servlet-name>
@@ -15,7 +15,7 @@
     
     <servlet>
         <servlet-name>Demo02</servlet-name>
-        <servlet-class>com.kc345ws.cookie.Demo02</servlet-class>
+        <servlet-class>com.com.kc345ws.cookie.Demo02</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Demo02</servlet-name>
@@ -24,7 +24,7 @@
 
     <servlet>
         <servlet-name>Demo03</servlet-name>
-        <servlet-class>com.kc345ws.cookie.Demo03</servlet-class>
+        <servlet-class>com.com.kc345ws.cookie.Demo03</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Demo03</servlet-name>
@@ -33,7 +33,7 @@
 
     <servlet>
         <servlet-name>ProductInfoServlet</servlet-name>
-        <servlet-class>com.kc345ws.servlet.ProductInfoServlet</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.ProductInfoServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProductInfoServlet</servlet-name>
@@ -42,7 +42,7 @@
 
     <servlet>
         <servlet-name>ClearHistory</servlet-name>
-        <servlet-class>com.kc345ws.servlet.ClearHistory</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.ClearHistory</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ClearHistory</servlet-name>

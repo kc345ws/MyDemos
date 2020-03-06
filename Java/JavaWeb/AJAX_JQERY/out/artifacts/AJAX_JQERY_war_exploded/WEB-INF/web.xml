@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>DemoServlet01</servlet-name>
-        <servlet-class>com.kc345ws.servlet.DemoServlet01</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.DemoServlet01</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DemoServlet01</servlet-name>
@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>CheckUserServlet</servlet-name>
-        <servlet-class>com.kc345ws.servlet.CheckUserServlet</servlet-class>
+        <servlet-class>com.com.kc345ws.servlet.CheckUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CheckUserServlet</servlet-name>

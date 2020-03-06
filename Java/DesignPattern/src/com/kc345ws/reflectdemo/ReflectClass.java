@@ -6,14 +6,14 @@ import java.lang.reflect.Method;
 
 //反射逻辑
 public class ReflectClass {
-    private final static String TAG = "com.kc345ws.reflectdemo.ReflectClass ";
+    private final static String TAG = "com.com.kc345ws.reflectdemo.ReflectClass ";
 
     //创建对象
     public static void reflectInstance(){
         try {
             //?是通配符,泛指所有类型
             //T和？运用的地方有点不同,?是定义在引用变量上,T是类上或方法上
-            Class<?> classBook = Class.forName("com.kc345ws.reflectdemo.Book");
+            Class<?> classBook = Class.forName("com.com.kc345ws.reflectdemo.Book");
             classBook.getDeclaredConstructor().setAccessible(true);
             Object obj = classBook.getDeclaredConstructor().newInstance();
             Book book = (Book)obj;
@@ -28,7 +28,7 @@ public class ReflectClass {
     //反射私有构造方法
     public static void reflectPrivateConsturctor(){
         try {
-            Class<?> classBook = Class.forName("com.kc345ws.reflectdemo.Book");
+            Class<?> classBook = Class.forName("com.com.kc345ws.reflectdemo.Book");
             //带有Declared修饰的方法可以反射到私有的方法，
             // 没有Declared修饰的只能用来反射公有的方法
             Constructor<?> declaredConstructor =classBook.getDeclaredConstructor(
@@ -51,7 +51,7 @@ public class ReflectClass {
     public static void reflectPrivateField() {
         try {
 
-            Object objectBook = Class.forName("com.kc345ws.reflectdemo.Book")
+            Object objectBook = Class.forName("com.com.kc345ws.reflectdemo.Book")
                     .getDeclaredConstructor().newInstance();
             Class<?> classBook = objectBook.getClass();
             Field fieldTag = classBook.getDeclaredField("TAG");
@@ -71,13 +71,13 @@ public class ReflectClass {
     public static void reflectPrivateMethod() {
         try {
 
-            Class<?> classBook = Class.forName("com.kc345ws.reflectdemo.Book");
+            Class<?> classBook = Class.forName("com.com.kc345ws.reflectdemo.Book");
 
             //获取declaredMethod方法
 
             Method methodBook = classBook.getDeclaredMethod("declaredMethod",int.class);
             methodBook.setAccessible(true);
-            Object objectBook = Class.forName("com.kc345ws.reflectdemo.Book").getDeclaredConstructor().newInstance();
+            Object objectBook = Class.forName("com.com.kc345ws.reflectdemo.Book").getDeclaredConstructor().newInstance();
 
             //传入参数0并返回结果
             String string = (String) methodBook.invoke(objectBook,0);

@@ -1,4 +1,4 @@
-<%@ page import="com.kc345ws.util.CookieUtil" %><%--
+<%@ page import="com.com.kc345ws.util.CookieUtil" %><%--
   Created by IntelliJ IDEA.
   User: Administrator
   Date: 2019.10.9

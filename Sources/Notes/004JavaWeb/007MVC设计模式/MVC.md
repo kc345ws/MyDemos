@@ -3,11 +3,11 @@
 
 1. JavaBean + JSP
 
-![imag](https://github.com/kc345ws/MyDemos/blob/master/Sources/Imgs/MarkDown/Java/004JavaWeb/007MVC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/img01.png?raw=true)
+![imag](https://github.com/com.kc345ws/MyDemos/blob/master/Sources/Imgs/MarkDown/Java/004JavaWeb/007MVC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/img01.png?raw=true)
 
 2. Servlet + JavaBean + JSP
 
-![imag](https://github.com/kc345ws/MyDemos/blob/master/Sources/Imgs/MarkDown/Java/004JavaWeb/007MVC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/img02.png?raw=true)
+![imag](https://github.com/com.kc345ws/MyDemos/blob/master/Sources/Imgs/MarkDown/Java/004JavaWeb/007MVC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/img02.png?raw=true)
 
 ## 学生信息管理系统
 
@@ -22,7 +22,7 @@
     	info VARCHAR(200)
     )
     
-![](https://raw.githubusercontent.com/kc345ws/MyDemos/master/imgs/20191014210459.png)
+![](https://raw.githubusercontent.com/com.kc345ws/MyDemos/master/imgs/20191014210459.png)
 
 ### 查询
     

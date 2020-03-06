@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>com.kc345ws.session.LoginServlet</servlet-class>
+        <servlet-class>com.com.kc345ws.session.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -15,7 +15,7 @@
 
     <servlet>
         <servlet-name>CarServlet</servlet-name>
-        <servlet-class>com.kc345ws.session.CarServlet</servlet-class>
+        <servlet-class>com.com.kc345ws.session.CarServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CarServlet</servlet-name>
