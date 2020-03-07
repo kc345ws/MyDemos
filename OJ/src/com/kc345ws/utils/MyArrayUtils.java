@@ -20,14 +20,23 @@ public class MyArrayUtils {
 	}
 	
 	public static int[] getArray(String str) {
+		str.replace("[","");
+		str.replace("]","");
 		String[]strs = str.split(",");
 		int[] arr = new int[strs.length];
-		for(int i = 0 ; i < strs.length ;i++) {
+		for(int i = 0 ; i < strs.length;i++) {
+
 			arr[i] = Integer.valueOf(strs[i]);
 		}
 		return arr;
 	}
-	
+
+	public static Object[] getObjects(String str){
+		str = str.replaceAll("\\[|]","");
+		Object[] objs = str.split(",");
+		return objs;
+	}
+
 	public static int[][] get2dArray(String str) {
 		//String为不可变类型
 		str = str.replaceAll("\\[", "");
