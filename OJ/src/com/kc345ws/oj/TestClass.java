@@ -2,8 +2,6 @@ package com.kc345ws.oj;
 
 import com.kc345ws.leetcode.*;
 import com.kc345ws.utils.MyArrayUtils;
-import com.kc345ws.utils.MyQueueutils;
-import com.kc345ws.utils.MyTreeUtils;
 
 //������
 public class TestClass {
@@ -42,7 +40,11 @@ public class TestClass {
 //		String[] operates = {"MaxQueue","max_value","pop_front","max_value","push_back","max_value","pop_front","max_value","pop_front","push_back","pop_front","pop_front","pop_front","push_back","pop_front","max_value","pop_front","max_value","push_back","push_back","max_value","push_back","max_value","max_value","max_value","push_back","pop_front","max_value","push_back","max_value","max_value","max_value","pop_front","push_back","push_back","push_back","push_back","pop_front","pop_front","max_value","pop_front","pop_front","max_value","push_back","push_back","pop_front","push_back","push_back","push_back","push_back","pop_front","max_value","push_back","max_value","max_value","pop_front","max_value","max_value","max_value","push_back","pop_front","push_back","pop_front","max_value","max_value","max_value","push_back","pop_front","push_back","push_back","push_back","pop_front","max_value","pop_front","max_value","max_value","max_value","pop_front","push_back","pop_front","push_back","push_back","pop_front","push_back","pop_front","push_back","pop_front","pop_front","push_back","pop_front","pop_front","pop_front","push_back","push_back","max_value","push_back","pop_front","push_back","push_back","pop_front"};
 //		Object[] operatenum = MyArrayUtils.getObjects("[[],[],[],[],[46],[],[],[],[],[868],[],[],[],[525],[],[],[],[],[123],[646],[],[229],[],[],[],[871],[],[],[285],[],[],[],[],[45],[140],[837],[545],[],[],[],[],[],[],[561],[237],[],[633],[98],[806],[717],[],[],[186],[],[],[],[],[],[],[268],[],[29],[],[],[],[],[866],[],[239],[3],[850],[],[],[],[],[],[],[],[310],[],[674],[770],[],[525],[],[425],[],[],[720],[],[],[],[373],[411],[],[831],[],[765],[701],[]]");
 //		MyQueueutils.DebugQueue(operates,operatenum , t);
-		_1399最小高度树 t = new _1399最小高度树();
-		t.sortedArrayToBST(MyArrayUtils.getArray(-10,-3,0,5,9));
+//		_1399最小高度树 t = new _1399最小高度树();
+//		t.sortedArrayToBST(MyArrayUtils.getArray(-10,-3,0,5,9));
+//		_0322零钱兑换 t = new _0322零钱兑换();
+//		System.out.println(t.coinChange(MyArrayUtils.getArray(1,2147483647),2));
+		_0338比特位计数 t = new _0338比特位计数();
+		t.countBits(16);
 	}
 }
