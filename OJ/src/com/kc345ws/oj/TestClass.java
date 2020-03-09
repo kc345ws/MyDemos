@@ -44,7 +44,11 @@ public class TestClass {
 //		t.sortedArrayToBST(MyArrayUtils.getArray(-10,-3,0,5,9));
 //		_0322零钱兑换 t = new _0322零钱兑换();
 //		System.out.println(t.coinChange(MyArrayUtils.getArray(1,2147483647),2));
-		_0338比特位计数 t = new _0338比特位计数();
-		t.countBits(16);
+//		_0338比特位计数 t = new _0338比特位计数();
+//		t.countBits(16);
+//		_0121买卖股票最佳时机 t = new _0121买卖股票最佳时机();
+//		t.maxProfit(MyArrayUtils.getArray(7,1,5,3,6,4));
+		_0123买卖股票最佳时机3 t = new _0123买卖股票最佳时机3();
+		t.maxProfit(MyArrayUtils.getArray(1,2,3,4,5));
 	}
 }
