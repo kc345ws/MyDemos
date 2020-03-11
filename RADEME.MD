@@ -1,0 +1,18 @@
+#【Java面试题与答案】整理推荐
+- [基础与语法](https://www.javanav.com/interview/93b0069472fd479393006c0e73043fc4.html)
+- [集合](https://www.javanav.com/interview/4147d95e693945e7a50345fd33ec817e.html)
+- [网络编程](https://www.javanav.com/interview/68a57ffc78de4133bb890bdd502ac418.html)
+- [并发编程](https://www.javanav.com/interview/36a24fa3258e45c89873f474ce914912.html)
+- [Web](https://www.javanav.com/interview/4e27cb63adb440c6825a159d35cf4010.html)
+- [安全](https://www.javanav.com/interview/03affb2ce3f04fda8853f714e5764906.html)
+- [设计模式](https://www.javanav.com/interview/07a32a9ff17a4006a53550ce658cafed.html)
+- [框架](https://www.javanav.com/interview/5c466456e9b54ab0a749b5948e51f1d3.html)
+- [算法与数据结构](https://www.javanav.com/interview/943f917041ee4f05add24539f5b861b2.html)
+- [异常](https://www.javanav.com/interview/d3f058cfc05d4c6dadd821b622e84d36.html)
+- [文件解析与生成](https://www.javanav.com/interview/67a50996c28f418e83b109ea42fc3eff.html)
+- [Linux](https://www.javanav.com/interview/00cccb81729540d1923bd0a0ef49533a.html)
+- [MySQL](https://www.javanav.com/interview/d311e78502a845f1a4bb307bd6aec2b3.html)
+- [Oracle](https://www.javanav.com/interview/5f29e9677edf4a16be3dce30d257c9ab.html)
+- [Redis](https://www.javanav.com/interview/066c62b3af4d4827b2243a822c3084a9.html)
+- [Dubbo](https://www.javanav.com/interview/9a3e7a7740324757abaab953f7ebc455.html)
+
