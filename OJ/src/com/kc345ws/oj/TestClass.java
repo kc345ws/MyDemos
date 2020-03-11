@@ -51,8 +51,10 @@ public class TestClass {
 //		t.maxProfit(MyArrayUtils.getArray(7,1,5,3,6,4));
 //		_0123买卖股票最佳时机3 t = new _0123买卖股票最佳时机3();
 //		t.maxProfit(MyArrayUtils.getArray(1,2,3,4,5));
-        _0543二叉树的直径 t = new _0543二叉树的直径();
-        Object[] objects = {4,-7,-3,null,null,-9,-3,9,-7,-4,null,6,null,-6,-6,null,null,0,6,5,null,9,null,null,-1,-4,null,null,null,-2};
-        t.diameterOfBinaryTree(MyTreeUtils.createBinary(objects));
+//        _0543二叉树的直径 t = new _0543二叉树的直径();
+//        Object[] objects = {4,-7,-3,null,null,-9,-3,9,-7,-4,null,6,null,-6,-6,null,null,0,6,5,null,9,null,null,-1,-4,null,null,null,-2};
+//        t.diameterOfBinaryTree(MyTreeUtils.createBinary(objects));
+        _0535TinyURL的加密与解密 t = new _0535TinyURL的加密与解密();
+        t.encode("https://leetcode.com/problems/design-tinyurl");
 	}
 }
