@@ -54,7 +54,9 @@ public class TestClass {
 //        _0543二叉树的直径 t = new _0543二叉树的直径();
 //        Object[] objects = {4,-7,-3,null,null,-9,-3,9,-7,-4,null,6,null,-6,-6,null,null,0,6,5,null,9,null,null,-1,-4,null,null,null,-2};
 //        t.diameterOfBinaryTree(MyTreeUtils.createBinary(objects));
-        _0535TinyURL的加密与解密 t = new _0535TinyURL的加密与解密();
-        t.encode("https://leetcode.com/problems/design-tinyurl");
+//        _0535TinyURL的加密与解密 t = new _0535TinyURL的加密与解密();
+//        t.encode("https://leetcode.com/problems/design-tinyurl");
+        _1071字符串的最大公因子 t = new _1071字符串的最大公因子();
+        t.gcdOfStrings("ABCABC","ABC");
 	}
 }
