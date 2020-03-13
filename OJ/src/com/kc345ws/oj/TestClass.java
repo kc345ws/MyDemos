@@ -56,7 +56,9 @@ public class TestClass {
 //        t.diameterOfBinaryTree(MyTreeUtils.createBinary(objects));
 //        _0535TinyURL的加密与解密 t = new _0535TinyURL的加密与解密();
 //        t.encode("https://leetcode.com/problems/design-tinyurl");
-        _1071字符串的最大公因子 t = new _1071字符串的最大公因子();
-        t.gcdOfStrings("ABCABC","ABC");
+//        _1071字符串的最大公因子 t = new _1071字符串的最大公因子();
+//        t.gcdOfStrings("ABCABC","ABC");
+        _0004寻找有序数组中的中位数 t = new _0004寻找有序数组中的中位数();
+        t.findMedianSortedArrays(MyArrayUtils.getArray(),MyArrayUtils.getArray(2,3));
 	}
 }
