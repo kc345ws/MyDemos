@@ -58,7 +58,14 @@ public class TestClass {
 //        t.encode("https://leetcode.com/problems/design-tinyurl");
 //        _1071字符串的最大公因子 t = new _1071字符串的最大公因子();
 //        t.gcdOfStrings("ABCABC","ABC");
-        _0004寻找有序数组中的中位数 t = new _0004寻找有序数组中的中位数();
-        t.findMedianSortedArrays(MyArrayUtils.getArray(),MyArrayUtils.getArray(2,3));
+//        _0004寻找有序数组中的中位数 t = new _0004寻找有序数组中的中位数();
+//        t.findMedianSortedArrays(MyArrayUtils.getArray(),MyArrayUtils.getArray(2,3));
+//        _0300最长上升子序列 t = new _0300最长上升子序列();
+//        t.lengthOfLIS(MyArrayUtils.getArray(10,9,2,5,3,7,101,18));
+//          _1436八皇后 t = new _1436八皇后();
+//          t.solveNQueens(4);
+          _0695岛屿的最大面积 t = new _0695岛屿的最大面积();
+        int[][] arrs = MyArrayUtils.get2dArray("[[1,1]]");
+          t.maxAreaOfIsland(arrs);
 	}
 }

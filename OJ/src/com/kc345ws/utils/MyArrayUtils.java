@@ -39,7 +39,7 @@ public class MyArrayUtils {
 
 	public static int[][] get2dArray(String str) {
 		//String为不可变类型
-		str = str.replaceAll("\\[", "");
+		str = str.replaceAll("\\[|\n", "");
 		str = str.replaceAll("\\],|]", "#");
 		String[]rs = str.split("\\#");
 		int[][] arrs = new int[rs.length][];
