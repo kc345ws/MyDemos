@@ -2,6 +2,7 @@ package com.kc345ws.oj;
 
 import com.kc345ws.leetcode.*;
 import com.kc345ws.utils.MyArrayUtils;
+import com.kc345ws.utils.MySortUtils;
 import com.kc345ws.utils.MyTreeUtils;
 
 //������
@@ -64,8 +65,15 @@ public class TestClass {
 //        t.lengthOfLIS(MyArrayUtils.getArray(10,9,2,5,3,7,101,18));
 //          _1436八皇后 t = new _1436八皇后();
 //          t.solveNQueens(4);
-          _0695岛屿的最大面积 t = new _0695岛屿的最大面积();
-        int[][] arrs = MyArrayUtils.get2dArray("[[1,1]]");
-          t.maxAreaOfIsland(arrs);
+//          _0695岛屿的最大面积 t = new _0695岛屿的最大面积();
+//        int[][] arrs = MyArrayUtils.get2dArray("[[1,1]]");
+//          t.maxAreaOfIsland(arrs);
+//        int []arr = MyArrayUtils.getArray(6,1,2,7,9,3,4,5,10,8);
+//        MySortUtils.quickSort(arr,0,arr.length-1);
+//        for(int item : arr){
+//            System.out.print(item+" ");
+//        }
+        _1394字符串压缩 t = new _1394字符串压缩();
+        t.compressString("aabcccccaaa");
 	}
 }
