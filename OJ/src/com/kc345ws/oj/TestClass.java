@@ -73,7 +73,17 @@ public class TestClass {
 //        for(int item : arr){
 //            System.out.print(item+" ");
 //        }
-        _1394字符串压缩 t = new _1394字符串压缩();
-        t.compressString("aabcccccaaa");
+//        _1394字符串压缩 t = new _1394字符串压缩();
+//        t.compressString("aabcccccaaa");
+//        _0005最长回文子串 t = new _0005最长回文子串();
+//        t.longestPalindrome("babad");
+//        _0409最长回文串 t = new _0409最长回文串();
+//        t.longestPalindrome("bb");
+//        _0015三数之和 t = new _0015三数之和();
+//        t.threeSum(MyArrayUtils.getArray(0,0,0));
+//        _0015三数之和 t = new _0015三数之和();
+//        t.threeSum(MyArrayUtils.getArray(0,0,0,0));
+        _0017电话号码的字母组合 t = new _0017电话号码的字母组合();
+        t.letterCombinations("234");
 	}
 }
