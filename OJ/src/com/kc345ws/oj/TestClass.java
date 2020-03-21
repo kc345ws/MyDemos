@@ -83,7 +83,13 @@ public class TestClass {
 //        t.threeSum(MyArrayUtils.getArray(0,0,0));
 //        _0015三数之和 t = new _0015三数之和();
 //        t.threeSum(MyArrayUtils.getArray(0,0,0,0));
-        _0017电话号码的字母组合 t = new _0017电话号码的字母组合();
-        t.letterCombinations("234");
+//        _0017电话号码的字母组合 t = new _0017电话号码的字母组合();
+////        t.letterCombinations("234");
+//        _1538最小的k个数 t = new _1538最小的k个数();
+//        t.getLeastNumbers(MyArrayUtils.getArray(3,2,1),2);
+//        _0365水壶问题 t = new _0365水壶问题();
+//        t.canMeasureWater(34,5,6);
+        _0022括号生成 t = new _0022括号生成();
+        t.generateParenthesis(3);
 	}
 }
