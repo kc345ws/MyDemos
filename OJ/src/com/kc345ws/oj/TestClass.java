@@ -89,7 +89,11 @@ public class TestClass {
 //        t.getLeastNumbers(MyArrayUtils.getArray(3,2,1),2);
 //        _0365水壶问题 t = new _0365水壶问题();
 //        t.canMeasureWater(34,5,6);
-        _0022括号生成 t = new _0022括号生成();
-        t.generateParenthesis(3);
+//        _0022括号生成 t = new _0022括号生成();
+//        t.generateParenthesis(3);
+//        _0031下一个排序 t = new _0031下一个排序();
+//        t.nextPermutation(MyArrayUtils.getArray(1,2,3));
+        _0046全排列 t = new _0046全排列();
+        t.permute(MyArrayUtils.getArray(1,2,3));
 	}
 }
