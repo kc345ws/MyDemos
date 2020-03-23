@@ -93,7 +93,9 @@ public class TestClass {
 //        t.generateParenthesis(3);
 //        _0031下一个排序 t = new _0031下一个排序();
 //        t.nextPermutation(MyArrayUtils.getArray(1,2,3));
-        _0046全排列 t = new _0046全排列();
-        t.permute(MyArrayUtils.getArray(1,2,3));
+//        _0046全排列 t = new _0046全排列();
+//        t.permute(MyArrayUtils.getArray(1,2,3));
+        _0039组合总和 t = new _0039组合总和();
+        t.combinationSum(MyArrayUtils.getArray(2,3,6,7),7);
 	}
 }
