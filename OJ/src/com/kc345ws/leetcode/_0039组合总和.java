@@ -36,34 +36,28 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class _0039组合总和 {
-    List<List<Integer>> ans = new ArrayList<>();
+    List<List<Integer>> ans = new LinkedList<>();
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<Integer> visited = new LinkedList<>();
-        Arrays.sort(candidates);
-        backtrack(new ArrayList<>(),0,target,candidates,visited);
+       // Arrays.sort(candidates);
+        backtrack(new LinkedList<>(),0,0,target,candidates);
         return ans;
     }
 
-    public void backtrack(List<Integer> item , int result ,int target ,int[] candidates ,List<Integer> visited){
+    //start用来去重
+    public void backtrack(List<Integer> item ,int start ,int result ,int target ,int[] candidates){
         if(result == target){
             ans.add(new LinkedList<>(item));
             return;
         }else if(result > target) return;
         int len = candidates.length;
-        for(int i = 0 ; i < len ; i++){
-            if(visited.contains(candidates[i])) continue;
+        for(int i = start ; i < len ; i++){
+            if(result + candidates[i] > target || candidates[i] == 0) continue;//所选数之和大于目标值跳过该数
             //选择该数
             item.add(candidates[i]);
-            backtrack(item,result+candidates[i],target,candidates,visited);
-            //撤销选择
+            backtrack(item,i,result+candidates[i],target,candidates);
+            //撤销选择回到上一层决策树
             if(item.size() > 0)
             item.remove(item.size()-1);
-            //把比这个数的所有数都加入visti中
-            for(int j = i ; j < len ; j++)
-            visited.add(candidates[j]);
-            backtrack(item,result,target,candidates,visited);
-            for(int j = i ; j < len ; j++)
-            visited.remove(visited.size()-1);
         }
     }
 }
